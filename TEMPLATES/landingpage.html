@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body >
+
+ <!-- ========== HEADER ========== -->
+  <header class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-blue-600 text-sm py-3 sm:py-0">
+    <nav class="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8" aria-label="Global">
+      <div class="flex items-center justify-between">
+        <a class="flex-none text-xl font-semibold text-white" href="#" aria-label="Brand">Overview</a>
+        <div class="sm:hidden">
+          <button type="button" class="hs-collapse-toggle size-9 flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-white/20 text-white hover:border-white/40 disabled:opacity-50 disabled:pointer-events-none" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
+            <svg class="hs-collapse-open:hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+            <svg class="hs-collapse-open:block hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end py-2 md:py-0 sm:ps-7">
+          <a class="py-3 ps-px sm:px-3 font-medium text-white" href="#" aria-current="page">About</a>
+          <a class="py-3 ps-px sm:px-3 font-medium text-white/80 hover:text-white" href="#">Services</a>
+          <a class="py-3 ps-px sm:px-3 font-medium text-white/80 hover:text-white" href="#">Contact</a>
+          <a class="py-3 ps-px sm:px-3 font-medium text-white/80 hover:text-white" href="#">Community</a>
+  
+          <div class="hs-dropdown [--strategy:static] sm:[--strategy:fixed] [--adaptive:none] sm:[--trigger:hover] py-3 ps-px sm:px-3">
+            <button type="button" class="flex items-center w-full text-white/80 hover:text-white font-medium">
+              Blog
+              <svg class="flex-shrink-0 ms-2 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+  
+            <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-48 hidden z-10 bg-white sm:shadow-md rounded-lg p-2 dark:bg-neutral-800 sm:dark:border dark:border-neutral-700 dark:divide-neutral-700 before:absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5">
+              <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">
+                About
+              </a>
+              <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none] sm:[--trigger:hover] relative">
+                <button type="button" class="w-full flex justify-between items-center text-sm text-gray-800 rounded-lg py-2 px-3 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300">
+                  Sub Menu
+                  <svg class="sm:-rotate-90 flex-shrink-0 ms-2 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+  
+                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-48 hidden z-10 sm:mt-2 bg-white sm:shadow-md rounded-lg p-2 dark:bg-neutral-800 sm:dark:border dark:border-neutral-700 dark:divide-neutral-700 before:absolute sm:border before:-end-5 before:top-0 before:h-full before:w-5 !mx-[10px] top-0 end-full">
+                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">
+                    About
+                  </a>
+                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">
+                    Downloads
+                  </a>
+                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">
+                    Team Account
+                  </a>
+                </div>
+              </div>
+  
+              <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">
+                Downloads
+              </a>
+              <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">
+                Team Account
+              </a>
+            </div>
+          </div>
+  
+          <a class="flex items-center gap-x-2 font-medium text-white/80 hover:text-white sm:border-s sm:border-white/30 py-2 md:py-0 sm:my-6 sm:ps-6" href="#">
+            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Log in
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ========== END HEADER ========== -->
+   <main>
+    <section class="lg:max-w-[80%] md:max-w-[90%] max-w-[98%] mx-auto md:h-[60vh] h-screen ">
+      <div class="grid grid-cols-12 items-center py-10 text-center md:text-left">
+        <div class="col-span-12 md:col-span-8 order-last md:order-first">
+           <h1 class="text-5xl mb-4 font-bold ">ALZHEIMER'S DISEASE</h1>
+          <p class="text-xl mb-9">Don't FORGET to save yourself from this FORGETTING disease.</p>
+          <div class="flex justify-center md:justify-start gap-4 mt-10">
+            <button class="px-3 py-2 rounded-md bg-blue-600 text-white font-bold border-2 border-blue-600">Symptoms</button>
+            <button class="px-3 py-2 rounded-md bg-blue-600 text-white font-bold border-2 border-blue-600">Precautions</button>
+            <button class="px-3 py-2 rounded-md border-2 border-blue-600 text-blue-700 font-bold">Learn More</button>
+           </div>
+        </div>
+        <div class="col-span-12 md:col-span-4 rounded-t-md "> 
+          <img class="block mx-auto sm:w-1/2 md:w-full" src="https://dailymedia.case.edu/wp-content/uploads/2016/10/31122453/brain.jpg" alt="">
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="grid md:grid-cols-4 gap-9">
+        <div class="border-2 shadow-md">
+          <img  src="https://www.shutterstock.com/image-photo/young-beautiful-hispanic-sad-woman-260nw-574517179.jpg" alt="">
+         <div class="p-4" >
+           <h2 class="text-3xl mt-4">EMOTIONAL SIGNS</h2>
+           
+           <p class="text-gray-700 mt-8"><h6>In Alzheimer's disease, emotional and behavioral changes can include increased anxiety, agitation, mood swings, irritability, and even paranoia or delusions,which can also increase with time if not taken care seriously and resulting in much more worsen scenerios.</h6></p>
+          
+        
+          </div>
+          <div class="flex justify-between items-center p-3">
+           
+           <button class="bg-blue-500 py-2 px-3 text-white rounded-md">Know more</button>
+
+          </div>
+        </div>
+        <div class="border-2 shadow-md">
+          <img src="https://assets.newatlas.com/dims4/default/17a238d/2147483647/strip/true/crop/2000x1333+0+29/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Fca%2Fb1%2F3e3fd1eb4a51989db5cebf8a883e%2Fdepositphotos-173920390-l-2015.jpg" alt="">
+         <div class="p-4" >
+           <h3 class="text-3xl mt-8">COGNITIVE SIGNS</h3>
+           <p class="text-gray-700 mt-8"><H6>Memory problems are typically one of the first signs of the disease. Decline in non-memory aspects of cognition, such as finding the right word and emotions , trouble understanding visual images, may also signal the early stages of Alzheimer's.</H6></p>
+          </div>
+          <div class="flex justify-between items-center mt-3 p-5">
+          
+           <button class="bg-blue-500 py-2 px-3 text-white rounded-md">Know more</button>
+
+          </div>
+        </div>
+        <div class="border-2 shadow-md">
+          <img src="https://img.freepik.com/premium-photo/alzheimers-dementia-concept-memory-loss-disease-losing-brain-function-memories-as-alzheimer-health-symbol_1029476-282348.jpg" alt="">
+         <div class="p-4" >
+           <h3 class="text-3xl mt-7">DEMENTIA CONCEPT</h3>
+           <p class="text-gray-700 mt-8"><H6>Dementia is a general term for a decline in cognitive abilities, including memory, language, and problem-solving, severe enough to interfere with daily life, and other cognitive abilities,  and is not a normal part of aging often caused by brain damage.</H6></p>
+          
+        
+          </div>
+          <div class="flex justify-between items-center mt-3 p-5">
+           
+           <button class="bg-blue-500 py-2 px-3 text-white rounded-md">Know more</button>
+
+          </div>
+        </div>
+        <div class="border-2 shadow-md">
+          <img class="h-100 object-contain w-full rounded-t-md" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL9QRW9qhK0ySqd6-20Kiu7EdP0MCTiM24aA&s">
+         <div class="p-4" >
+           <h3 class="text-3xl mt-6">MEDICATION</h3>
+           <p class="text-gray-700 mt-8"><h6>Aduhelm (aducanumab), an anti-amyloid drug, was approved by the FDA in 2021 for treating Alzheimer's disease, specifically targeting amyloid plaques in the brain, but its approval was controversial and the drug was discontinued in 2024. </h6></p>
+          
+        
+          </div>
+          <div class="flex justify-between items-center mt-3 p-5">
+          
+           <button class="bg-blue-500 py-2 px-3 text-white rounded-md ">Know more</button>
+
+          </div>
+        </div>
+          
+        
+      </div>
+
+    </section>
+
+
+
+
+
+
+   </main>
+  
+  
+  <footer class="py-16 bg-gray-300 mt-8">
+<div class="grid grid-cols-12 max-w-[90%] lg:max-w-[80%] mx-auto gap-5">
+  <div class=" col-span-12  md:col-span-4">
+    <h1 class="text-2xl font-bold my-3">WELLNESSHUB</h1>
+<p class="text-lg font-bold">&copy; 2024,All Rights Reserved</p>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+  Libero corporis alias quidem repudiandae nostrum deleniti?</p>
+  </div>
+
+  <div class="col-span-4 md:col-span-2">
+    <h1 class="text-xl font-bold my-3">Quick Links</h1>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Home</a>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Community</a>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Contact</a>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Service</a>
+    
+  </div>
+
+  <div class="col-span-4 md:col-span-2 ">
+    <h1 class="text-xl font-bold my-3">Top Insurances</h1>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Green shield</a>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Health First </a>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">Longevity</a>
+    <a class="block text-black hover:text-blue-600 text-lg " href="#">View more</a>
+    
+  </div>
+
+</div>
+  </footer>
+</body>
+</html>
+

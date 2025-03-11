@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="main">
+<div class="container">
+    <h1>welcome</h1>
+    <p>this is your first flask webpage</p>
+    <a href="" class="btn">learn more</a>
+</div>
+</div>
+
+{% endblock %}
+{% block js %}
+
+<script>
+
+</script>
+{% endblock %}
+{% block css %}
+<style>
+    .container{
+        text-align: center;
+        background-color: blanchedalmond;
+        border: 1px solid black;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 100px;
+        width: 30%; 
+    }
+    .btn{
+        font-size: 10px;
+        background-color:  blue;
+        color: white;
+        text-decoration: none;
+        padding: 5px;
+        border-radius: 2px;
+    }
+    .main{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+
+        
+    }
+
+</style>
+{% endblock %}
+{% block head %}{% endblock %}
