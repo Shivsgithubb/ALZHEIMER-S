@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - Flask App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>About This App</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a> |
+            <a href="{{ url_for('about') }}">About</a> |
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <p>This is a simple Flask web application that demonstrates basic routing, templates, and flash messages.</p>
+        <p>It includes pages like Landing, About, and Login. Future versions may include features like user authentication and file uploads.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Flask Demo App</p>
+    </footer>
+</body>
+</html>
