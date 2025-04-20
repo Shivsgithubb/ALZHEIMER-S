@@ -7,8 +7,11 @@ app.secret_key = 'supersecretmre'
 
 @app.route('/')
 def index():
-    flash('Welcome to the Flask App', 'info')
-    return render_template('landingpage.html')
+    return render_template('index.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/about')
 def about():
@@ -16,8 +19,9 @@ def about():
 
 @app.route('/login')
 def login():
-    return render_template('loginpage.html')
+    return render_template('login.html')
 
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
+
