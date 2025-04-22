@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Complete Responsive Hospital Website Design Tutorial</title>
+    <title>ALZHEIMER'S PREDICTION</title>
 
     <!-- font awesome cdn link  -->
     <link
@@ -12,25 +12,58 @@
     />
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static\css\index.css" />
   </head>
 
   <body>
     <!-- header navbar section start  -->
-
+<!---->
+    <link rel="stylesheet" href="static\css\sidebar.css" />
+<div id="nav-bar">
+  <input id="nav-toggle" type="checkbox"/>
+  <div id="nav-header"><a id="nav-title" href="https://codepen.io" target="_blank">C<i class="fab fa-codepen"></i>DEPEN</a>
+    <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+    <hr/>
+  </div>
+  <div id="nav-content">
+    <div class="nav-button"><i class="fas fa-palette"></i><span>Your Work</span></div>
+    <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
+    <div class="nav-button"><i class="fas fa-thumbtack"></i><span>Pinned Items</span></div>
+    <hr/>
+    <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
+    <div class="nav-button"><i class="fas fa-chart-line"></i><span>Trending</span></div>
+    <div class="nav-button"><i class="fas fa-fire"></i><span>Challenges</span></div>
+    <div class="nav-button"><i class="fas fa-magic"></i><span>Spark</span></div>
+    <hr/>
+    <div class="nav-button"><i class="fas fa-gem"></i><span>Codepen Pro</span></div>
+    <div id="nav-content-highlight"></div>
+  </div>
+  <input id="nav-footer-toggle" type="checkbox"/>
+  <div id="nav-footer">
+    <div id="nav-footer-heading">
+      <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
+      <div id="nav-footer-titlebox"><a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank">uahnbu</a><span id="nav-footer-subtitle">Admin</span></div>
+      <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+    </div>
+    <div id="nav-footer-content">
+      <Lorem>ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Lorem>
+    </div>
+  </div>
+</div>
+<!---->
     <header>
       <!-- navbar link  -->
 
       <a href="#" class="logo"
-        ><span>A</span>lzheimer <span>R</span>esearch Hub</a
+        ><span>A</span>lzheimer <span>P</span>rediction 
+        </a
       >
       <nav class="navbar">
         <ul>
           <li><a href="#home">Home</a></li>
           <li><a href="#data">Data Insights</a></li>
           <li><a href="#research">Research</a></li>
-          <li><a href="#treatment">Treatments</a></li>
-          <li><a href="#resources">Resources</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="/login">Login</a></li>
         </ul>
@@ -46,7 +79,7 @@
       <div class="row">
         <!-- home images  -->
         <div class="images">
-          <img src="./images/home.png" alt="" />
+          <img src="static/images/home.png" alt="" />
         </div>
 
         <!-- home heading  -->
@@ -61,7 +94,7 @@
           <div class="hero-buttons">
             <a href="#data"><button class="button">View Data</button></a>
             <a href="#research"
-              ><button class="button">Latest Research</button></a
+              ><button class="button">New Research</button></a
             >
           </div>
         </div>
@@ -80,7 +113,7 @@
         <div class="box">
           <!-- about images  -->
           <div class="images">
-            <img src="./images/about-1.png" alt="" />
+            <img src="static/images/about-1.png" alt="" />
           </div>
 
           <!-- about heading & text  -->
@@ -100,7 +133,7 @@
         <div class="box">
           <!-- about images  -->
           <div class="images">
-            <img src="./images/about-2.png" alt="" />
+            <img src="static/images/about-2.png" alt="" />
           </div>
 
           <!-- about heading & text  -->
@@ -120,7 +153,7 @@
         <div class="box">
           <!-- about images  -->
           <div class="images">
-            <img src="./images/about-3.png" alt="" />
+            <img src="static/images/about-3.png" alt="" />
           </div>
 
           <!-- about heading & text  -->
@@ -150,7 +183,7 @@
         <div class="box-container">
           <!-- start here  -->
           <div class="box">
-            <img src="./images/doctor-1.jpg" alt="" />
+            <img src="static/images/doctor-1.jpg" alt="" />
 
             <div class="content">
               <a href="#">
@@ -170,7 +203,7 @@
 
           <!-- start here  -->
           <div class="box">
-            <img src="./images/doctor-2.jpg" alt="" />
+            <img src="static/images/doctor-2.jpg" alt="" />
 
             <div class="content">
               <a href="#">
@@ -190,7 +223,7 @@
 
           <!-- start here  -->
           <div class="box">
-            <img src="./images/doctor-3.jpg" alt="" />
+            <img src="static/images/doctor-3.jpg" alt="" />
 
             <div class="content">
               <a href="#">
@@ -228,7 +261,7 @@
           </p>
 
           <div class="images">
-            <img src="./images/img-1.jpg" alt="" />
+            <img src="static/images/img-1.jpg" alt="" />
 
             <div class="info">
               <h3>john doe</h3>
@@ -247,7 +280,7 @@
           </p>
 
           <div class="images">
-            <img src="./images/img-2.jpg" alt="" />
+            <img src="static/images/img-2.jpg" alt="" />
 
             <div class="info">
               <h3>john doe</h3>
@@ -266,7 +299,7 @@
           </p>
 
           <div class="images">
-            <img src="./images/img-3.jpg" alt="" />
+            <img src="static/images/img-3.jpg" alt="" />
 
             <div class="info">
               <h3>john doe</h3>
@@ -288,7 +321,7 @@
       <div class="row">
         <!-- form images  -->
         <div class="images">
-          <img src="./images/form.png" alt="" />
+          <img src="static/images/form.png" alt="" />
         </div>
 
         <div class="form-container">
@@ -314,7 +347,7 @@
         <!-- start here  -->
         <div class="box">
           <!-- images  -->
-          <img src="./images/blog 1.png" alt="" />
+          <img src="static/images/blog 1.png" alt="" />
 
           <div class="content">
             <a href="#">
@@ -333,7 +366,7 @@
         <!-- start here  -->
         <div class="box">
           <!-- images  -->
-          <img src="./images/blog 2.png" alt="" />
+          <img src="static/images/blog 2.png" alt="" />
 
           <div class="content">
             <a href="#">
@@ -352,7 +385,7 @@
         <!-- start here  -->
         <div class="box">
           <!-- images  -->
-          <img src="./images/blog 3.png" alt="" />
+          <img src="static/images/blog 3.png" alt="" />
 
           <div class="content">
             <a href="#">

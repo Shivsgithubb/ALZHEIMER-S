@@ -2,26 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Us - Flask App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>About Us - Alzheimer Research Hub</title>
+    <link rel="stylesheet" href="static\css\dashboard.css">
 </head>
 <body>
     <header>
-        <h1>About This App</h1>
+        <h1>About the Alzheimer Research Hub</h1>
         <nav>
             <a href="{{ url_for('index') }}">Home</a> |
-            <a href="{{ url_for('about') }}">About</a> |
+            
             <a href="{{ url_for('login') }}">Login</a>
         </nav>
     </header>
 
     <main>
-        <p>This is a simple Flask web application that demonstrates basic routing, templates, and flash messages.</p>
-        <p>It includes pages like Landing, About, and Login. Future versions may include features like user authentication and file uploads.</p>
+        <section class="intro">
+            <h2>Our Mission</h2>
+            <p>The Alzheimer Research Hub is dedicated to advancing awareness, research, and support for individuals and families affected by Alzheimer's disease. We aim to make scientific findings more accessible and connect the community with the latest developments in treatment and care.</p>
+        </section>
+
+        <section class="details">
+            <h2>What We Offer</h2>
+            <ul>
+                <li><strong>Research Summaries:</strong> Simplified explanations of current Alzheimer's research studies.</li>
+                <li><strong>Data Insights:</strong> Interactive charts and visualizations of Alzheimer-related trends.</li>
+                <li><strong>Treatment Information:</strong> Overview of available treatments and emerging therapies.</li>
+                <li><strong>Community Support:</strong> Resources and guidance for caregivers and patients.</li>
+            </ul>
+        </section>
+
+        <section class="future">
+            <h2>What’s Coming Next?</h2>
+            <p>We’re working on bringing you user accounts, personalized tracking, and data uploads for collaborative analysis. Stay tuned for features that will make our platform even more interactive and helpful.</p>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Flask Demo App</p>
+        <p>&copy; 2025 Alzheimer Research Hub | Empowering Minds Through Knowledge</p>
     </footer>
 </body>
 </html>
