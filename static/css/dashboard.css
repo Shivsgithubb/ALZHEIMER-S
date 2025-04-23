@@ -8,16 +8,32 @@
 }
 
 body {
-    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #f0f8ff;
     color: #333;
     line-height: 1.6;
     padding: 0 20px;
 }
 
+.dashboard-container {
+    margin-left: calc(var(--navbar-width) + 2vw);
+    padding: 20px;
+    transition: margin-left 0.2s ease;
+}
+
+#nav-toggle:checked ~ .dashboard-container {
+    margin-left: calc(var(--navbar-width-min) + 2vw);
+}
+
 header {
-    background: #007BFF;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
     color: white;
-    padding: 30px 0;
     text-align: center;
     border-radius: 0 0 15px 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
