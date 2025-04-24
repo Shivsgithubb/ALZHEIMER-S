@@ -331,6 +331,6 @@ label[for="nav-footer-toggle"] {
 }
 
 .nav-button:hover {
-  background-color: var(--navbar-dark-secondary);
+  /* background-color: var(--navbar-dark-secondary); */
   border-radius: 8px;
 }

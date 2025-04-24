@@ -731,6 +731,7 @@ html, body {
   top: 1vw;
   height: calc(100% - 2vw);
   background: var(--navbar-dark-primary);
+  padding-top: 50;
   border-radius: 16px;
   display: flex;
   flex-direction: column;

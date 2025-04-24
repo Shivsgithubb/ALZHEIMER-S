@@ -1,97 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>About Us - Alzheimer Research Hub</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
     <!-- External CSS -->
-    <link rel="stylesheet" href="static/css/dashboard.css">
-    <link rel="stylesheet" href="static/css/sidebar.css">
-    
+    <link rel="stylesheet" href="static/css/dashboard.css" />
+    <link rel="stylesheet" href="static/css/sidebar.css" />
+
     <!-- Subtle animations (you can define this class in your CSS) -->
     <style>
-        .fade-in {
-            animation: fadeIn 1.2s ease-in-out both;
+      .fade-in {
+        animation: fadeIn 1.2s ease-in-out both;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Sidebar Navigation -->
-    <aside id="nav-bar" aria-label="Sidebar Navigation">
-        <input id="nav-toggle" type="checkbox">
+    <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" />
         <div id="nav-header">
-            <div id="nav-title">Menu</div>
-            <label for="nav-toggle">
-                <span id="nav-toggle-burger">
-                    <i class="fas fa-bars" aria-hidden="true"></i>
-                </span>
-            </label>
-            <hr>
+          <a id="nav-title" href="https://codepen.io" target="_blank"
+            >C<i class="fab fa-codepen"></i>DEPEN</a
+          >
+          <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+          <hr />
         </div>
-
-        <nav id="nav-content">
-            <a href="{{ url_for('index') }}" class="nav-button" aria-label="Go to Home">
-                <i class="fas fa-home" aria-hidden="true"></i><span>Home</span>
-            </a>
-            <a href="{{ url_for('login') }}" class="nav-button" aria-label="Login">
-                <i class="fas fa-sign-in-alt" aria-hidden="true"></i><span>Login</span>
-            </a>
-            <div id="nav-content-highlight"></div>
-        </nav>
-    </aside>
+        <div id="nav-content">
+          <div class="nav-button">
+            <i class="fas fa-palette"></i><span>Your Work</span>
+          </div>
+          <div class="nav-button">
+            <i class="fas fa-images"></i><span>Assets</span>
+          </div>
+          <div class="nav-button">
+            <i class="fas fa-thumbtack"></i><span>Pinned Items</span>
+          </div>
+          <hr />
+          <div class="nav-button">
+            <i class="fas fa-heart"></i><span>Following</span>
+          </div>
+          <div class="nav-button">
+            <i class="fas fa-chart-line"></i><span>Trending</span>
+          </div>
+          <div class="nav-button">
+            <i class="fas fa-fire"></i><span>Challenges</span>
+          </div>
+          <div class="nav-button">
+            <i class="fas fa-magic"></i><span>Spark</span>
+          </div>
+          <hr />
+          <div class="nav-button">
+            <i class="fas fa-gem"></i><span>Alzhiemrs</span>
+          </div>
+          <div id="nav-content-highlight"></div>
+        </div>
+        <input id="nav-footer-toggle" type="checkbox" />
+        <div id="nav-footer">
+          <div id="nav-footer-heading">
+            <div id="nav-footer-avatar">
+              <img
+                src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"
+              />
+            </div>
+            <div id="nav-footer-titlebox">
+              <a
+                id="nav-footer-title"
+                href="https://codepen.io/uahnbu/pens/public"
+                target="_blank"
+                >Shivendra</a
+              ><span id="nav-footer-subtitle">Admin</span>
+            </div>
+            <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+          </div>
+          <div id="nav-footer-content">
+            <Lorem
+              >ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.</Lorem
+            >
+          </div>
+        </div>
+      </div>
 
     <!-- Main Content -->
     <div class="dashboard-container fade-in">
-        <header>
-            <h1>About the Alzheimer Research Hub</h1>
-            <nav aria-label="Main navigation">
-                <a href="{{ url_for('index') }}">Home</a> |
-                <a href="{{ url_for('login') }}">Login</a>
-            </nav>
-        </header>
+      <header>
+        <h1>About the Alzheimer Research Hub</h1>
+        <nav aria-label="Main navigation">
+          <a href="{{ url_for('index') }}">Home</a> |
+          <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+      </header>
 
-        <main>
-            <section class="intro">
-                <h2>Our Mission</h2>
-                <p>
-                    The Alzheimer Research Hub is dedicated to advancing awareness, research, and support for individuals and families affected by Alzheimer's disease.
-                    We aim to make scientific findings more accessible and connect the community with the latest developments in treatment and care.
-                </p>
-            </section>
+      <main>
+        <section class="intro">
+          <h2>Our Mission</h2>
+          <p>
+            The Alzheimer Research Hub is dedicated to advancing awareness,
+            research, and support for individuals and families affected by
+            Alzheimer's disease. We aim to make scientific findings more
+            accessible and connect the community with the latest developments in
+            treatment and care.
+          </p>
+        </section>
 
-            <section class="details">
-                <h2>What We Offer</h2>
-                <ul>
-                    <li><strong>Research Summaries:</strong> Simplified explanations of current Alzheimer's research studies.</li>
-                    <li><strong>Data Insights:</strong> Interactive charts and visualizations of Alzheimer-related trends.</li>
-                    <li><strong>Treatment Information:</strong> Overview of available treatments and emerging therapies.</li>
-                    <li><strong>Community Support:</strong> Resources and guidance for caregivers and patients.</li>
-                </ul>
-            </section>
+        <section class="details">
+          <h2>What We Offer</h2>
+          <ul>
+            <li>
+              <strong>Research Summaries:</strong> Simplified explanations of
+              current Alzheimer's research studies.
+            </li>
+            <li>
+              <strong>Data Insights:</strong> Interactive charts and
+              visualizations of Alzheimer-related trends.
+            </li>
+            <li>
+              <strong>Treatment Information:</strong> Overview of available
+              treatments and emerging therapies.
+            </li>
+            <li>
+              <strong>Community Support:</strong> Resources and guidance for
+              caregivers and patients.
+            </li>
+          </ul>
+        </section>
 
-            <section class="future">
-                <h2>What’s Coming Next?</h2>
-                <p>
-                    We’re working on bringing you user accounts, personalized tracking, and data uploads for collaborative analysis.
-                    Stay tuned for features that will make our platform even more interactive and helpful.
-                </p>
-            </section>
-        </main>
+        <section class="future">
+          <h2>What’s Coming Next?</h2>
+          <p>
+            We’re working on bringing you user accounts, personalized tracking,
+            and data uploads for collaborative analysis. Stay tuned for features
+            that will make our platform even more interactive and helpful.
+          </p>
+        </section>
+      </main>
 
-        <footer>
-            <p>&copy; 2025 Alzheimer Research Hub | Empowering Minds Through Knowledge</p>
-        </footer>
+      <footer>
+        <p>
+          &copy; 2025 Alzheimer Research Hub | Empowering Minds Through
+          Knowledge
+        </p>
+      </footer>
     </div>
 
     <script src="static/js/main.js"></script>
-</body>
+  </body>
 </html>
