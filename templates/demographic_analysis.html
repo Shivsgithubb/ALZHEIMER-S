@@ -3,10 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Health Data Charts</title>
 </head>
 <body>
-    <img src="{{url_for('static', filename='charts/rate_by_age_group.png')}}" alt="">
-    <img src="{{url_for('static', filename='charts/Gender_distribution.png')}}" alt="">
+    <header>
+        <h1>Health Data Visualization</h1>
+        <p>This page presents visual insights on health trends based on age, gender, and education levels.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Diagnosis Rate by Age Group</h2>
+            <p>The chart below illustrates the rate of diagnosis among different age groups.</p>
+            <img src="{{url_for('static', filename='charts/rate_by_age_group.png')}}" alt="Chart showing diagnosis rate by age group">
+        </section>
+
+        <section>
+            <h2>Gender Distribution</h2>
+            <p>This chart provides a visual breakdown of gender distribution in the dataset.</p>
+            <img src="{{url_for('static', filename='charts/Gender_distribution.png')}}" alt="Chart showing gender distribution">
+        </section>
+
+        <section>
+            <h2>Diagnosis Rate by Education Level</h2>
+            <p>Explore how education level correlates with diagnosis rates in this visualization.</p>
+            <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_education.png')}}" alt="Chart showing diagnosis rate by education level">
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
+    </footer>
 </body>
 </html>
