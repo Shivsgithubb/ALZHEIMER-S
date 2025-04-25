@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
@@ -118,17 +119,93 @@ def demographics():
     plt.grid(axis='x', linestyle='--', alpha=0.3)
 
     plt.tight_layout()
-    plt.show()
+    
 
     # Print the numbers
     print('\nDiagnosis rates by education level:')
     print(edu_analysis)
     plt.savefig('static/charts/Diagnosis_rate_by_education.png')
 
+
+
     #4th graph
 
+        # Calculate diagnosis rate by country
+    country_stats = df.groupby('Country')['Alzheimer’s Diagnosis'].apply(lambda x: (x == 'Yes').mean() * 100).reset_index()
+    country_stats.columns = ['Country', 'Diagnosis_Rate']
 
-    return render_template('demographic_analysis.html', graphs=['rate_by_age_group.png,gender_distribution.png,Diagnosis_rate_by_education.png'])
+    try:
+        # Import required libraries for mapping
+        import geopandas as gpd
+
+        # Load world map data
+        world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+
+        # Some country names might differ between your dataset and the naturalearth dataset
+        # Create a mapping dictionary for inconsistent country names
+        country_name_map = {
+            'United States': 'United States of America',
+            'UK': 'United Kingdom',
+            # Add more mappings if needed
+        }
+
+        # Apply the country name mapping
+        country_stats['Country'] = country_stats['Country'].replace(country_name_map)
+
+        # Merge the diagnosis rates with the world map data
+        world = world.merge(country_stats, how='left', left_on=['name'], right_on=['Country'])
+
+        # Create the choropleth map
+        fig, ax = plt.subplots(1, 1, figsize=(20, 10))
+
+        # Plot the map
+        world.plot(column='Diagnosis_Rate',
+                ax=ax,
+                legend=True,
+                legend_kwds={'label': 'Alzheimer\'s Diagnosis Rate (%)',
+                            'orientation': 'horizontal'},
+                missing_kwds={'color': 'lightgrey'},
+                cmap='YlOrRd')
+
+        # Customize the map
+        ax.set_title('Alzheimer\'s Diagnosis Rate by Country', fontsize=16)
+        ax.axis('off')
+
+        # Add text for missing data
+        ax.annotate('Grey: No Data',
+                xy=(0.1, 0.1),
+                xycoords='axes fraction',
+                fontsize=12)
+
+        plt.tight_layout()
+        plt.show()
+
+    except Exception as e:
+        print(f'Error creating choropleth map: {str(e)}')
+        print('\nFallback to basic visualization:')
+        
+        # Create a simple bar plot as fallback
+        plt.figure(figsize=(15, 6))
+        sns.barplot(data=country_stats, x='Country', y='Diagnosis_Rate')
+        plt.xticks(rotation=45, ha='right')
+        plt.title('Alzheimer\'s Diagnosis Rate by Country')
+        plt.xlabel('Country')
+        plt.ylabel('Diagnosis Rate (%)')
+        plt.tight_layout()
+        
+
+        # Print the actual numbers
+        print('\nDiagnosis rates by country:')
+        print(country_stats.sort_values('Diagnosis_Rate', ascending=False))
+        plt.savefig('static/charts/Diagnosis_rate_by_Country.png')
+
+
+    return render_template('demographic_analysis.html', graphs=['rate_by_age_group.png,gender_distribution.png,Diagnosis_rate_by_education.png,Diagnosis_rate_by_Country.png'])
+
+
+#lifestylte and health
+
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
