@@ -1,44 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Data Charts</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Data Charts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0077b6;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      animation: fadeSlideDown 1s ease-out;
+    }
+
+    @keyframes fadeSlideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    section.animate {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    section:hover {
+      transform: scale(1.01);
+    }
+
+    section h2 {
+      color: #023e8a;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p {
+      margin-bottom: 1rem;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.02);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #023e8a;
+      color: #fff;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+      opacity: 0;
+      animation: fadeUp 1s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      section h2 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Health Data Visualization</h1>
-        <p>This page presents visual insights on health trends based on age, gender, and education levels.</p>
-    </header>
 
-    <main>
-        <section>
-            <h2>Diagnosis Rate by Age Group</h2>
-            <p>The chart below illustrates the rate of diagnosis among different age groups.</p>
-            <img src="{{url_for('static', filename='charts/rate_by_age_group.png')}}" alt="Chart showing diagnosis rate by age group">
-        </section>
+<header>
+  <h1>Health Data Visualization</h1>
+  <p>This page presents visual insights on health trends based on age, gender, country and education levels.</p>
+</header>
 
-        <section>
-            <h2>Gender Distribution</h2>
-            <p>This chart provides a visual breakdown of gender distribution in the dataset.</p>
-            <img src="{{url_for('static', filename='charts/Gender_distribution.png')}}" alt="Chart showing gender distribution">
-        </section>
+<main>
+  <section class="fade-in">
+    <h2>Diagnosis Rate by Age Group</h2>
+    <p>The chart below illustrates the rate of diagnosis among different age groups.</p>
+    <img src="{{url_for('static', filename='charts/rate_by_age_group.png')}}" alt="Chart showing diagnosis rate by age group">
+  </section>
 
-        <section>
-            <h2>Diagnosis Rate by Education Level</h2>
-            <p>Explore how education level correlates with diagnosis rates in this visualization.</p>
-            <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_education.png')}}" alt="Chart showing diagnosis rate by education level">
-        </section>
+  <section class="fade-in">
+    <h2>Gender Distribution</h2>
+    <p>This chart provides a visual breakdown of gender distribution in the dataset.</p>
+    <img src="{{url_for('static', filename='charts/Gender_distribution.png')}}" alt="Chart showing gender distribution">
+  </section>
 
-        <section>
-            <h2>Diagnosis Rate by Country</h2>
-            <p>This chart shows diagnosis by country.</p>
-            <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_Country.png')}}" alt="Chart showing diagnosis rate by country">
-        </section>
-    </main>
+  <section class="fade-in">
+    <h2>Diagnosis Rate by Education Level</h2>
+    <p>Explore how education level correlates with diagnosis rates in this visualization.</p>
+    <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_education.png')}}" alt="Chart showing diagnosis rate by education level">
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
-    </footer>
+  <section class="fade-in">
+    <h2>Diagnosis Rate by Country</h2>
+    <p>This chart shows diagnosis by country.</p>
+    <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_Country.png')}}" alt="Chart showing diagnosis rate by country">
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
+</footer>
+
+<!-- Scroll Animation Script -->
+<script>
+  const sections = document.querySelectorAll('.fade-in');
+
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+
+      if (sectionTop < triggerBottom) {
+        section.classList.add('animate');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
+</script>
+
 </body>
 </html>
