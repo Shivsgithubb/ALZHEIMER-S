@@ -203,7 +203,7 @@ def demographics():
     return render_template('demographic_analysis.html', graphs=['rate_by_age_group.png,gender_distribution.png,Diagnosis_rate_by_education.png,Diagnosis_rate_by_Country.png'])
 
 
-#lifestylte and health
+#lifestyle and health
 
 
 

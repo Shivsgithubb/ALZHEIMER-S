@@ -1,186 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Data Charts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Data Charts</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="static/css/sidebar.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #f4f6f9;
-      color: #333;
-      line-height: 1.6;
-    }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: #f4f6f9;
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+      }
 
-    header {
-      background: #0077b6;
-      color: #fff;
-      padding: 2rem 1rem;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      animation: fadeSlideDown 1s ease-out;
-    }
+      .body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
 
-    @keyframes fadeSlideDown {
-      0% {
+      main {
+        margin-left: calc(var(--navbar-width) + 2vw);  /* Account for sidebar width plus its left margin */
+        padding: 2rem;
+        min-height: 100vh;
+        width: calc(100% - (var(--navbar-width) + 3vw));  /* Ensure main content doesn't overlap */
+      }
+
+      section {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto 2rem auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, opacity 0.5s ease;
+        transform: translateY(30px);
         opacity: 0;
-        transform: translateY(-20px);
       }
-      100% {
-        opacity: 1;
+
+      section.animate {
         transform: translateY(0);
-      }
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    section {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      transition: transform 0.3s ease, opacity 0.5s ease;
-      transform: translateY(30px);
-      opacity: 0;
-    }
-
-    section.animate {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    section:hover {
-      transform: scale(1.01);
-    }
-
-    section h2 {
-      color: #023e8a;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    section p {
-      margin-bottom: 1rem;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      transition: transform 0.3s ease;
-    }
-
-    img:hover {
-      transform: scale(1.02);
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #023e8a;
-      color: #fff;
-      font-size: 0.9rem;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-      opacity: 0;
-      animation: fadeUp 1s ease-out 0.3s forwards;
-    }
-
-    @keyframes fadeUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
         opacity: 1;
-        transform: translateY(0);
       }
-    }
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
+      section:hover {
+        transform: scale(1.01);
       }
 
       section h2 {
-        font-size: 1.25rem;
+        color: #023e8a;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
       }
-    }
-  </style>
-</head>
-<body>
 
-<header>
+      section p {
+        margin-bottom: 1.5rem;
+      }
+
+      img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        transition: transform 0.3s ease;
+        display: block;
+        margin: 0 auto;
+      }
+
+      img:hover {
+        transform: scale(1.02);
+      }
+
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        background: #023e8a;
+        color: #fff;
+        font-size: 0.9rem;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        animation: fadeUp 1s ease-out 0.3s forwards;
+        margin-left: 280px; /* Match main content margin */
+      }
+
+      @media (max-width: 768px) {
+        main {
+          margin-left: 0;
+          padding: 0 1rem;
+        }
+
+        section {
+          padding: 1.5rem;
+        }
+
+        footer {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <header>
   <h1>Health Data Visualization</h1>
   <p>This page presents visual insights on health trends based on age, gender, country and education levels.</p>
-</header>
+</header> -->
+    <!-- Sidebar Navigation -->
+    <div id="nav-bar">
+      <input id="nav-toggle" type="checkbox" />
+      <div id="nav-header">
+        <a id="nav-title" href="https://codepen.io" target="_blank">
+          <pre>    Graphs Analysis</pre>
+        </a>
+        <hr />
+        <label for="nav-toggle"><span id="nav-toggle"></span></label>
+        <hr />
+      </div>
+      <div id="nav-content">
+        <div class="nav-button">
+          <a href="/demographic_analysis">
+            <i class="fas fa-chart-line"></i><span>Demographic Analysis</span>
+          </a>
+        </div>
+        <hr />
 
-<main>
-  <section class="fade-in">
-    <h2>Diagnosis Rate by Age Group</h2>
-    <p>The chart below illustrates the rate of diagnosis among different age groups.</p>
-    <img src="{{url_for('static', filename='charts/rate_by_age_group.png')}}" alt="Chart showing diagnosis rate by age group">
-  </section>
+        <div class="nav-button">
+          <i class="fas fa-key"></i><span>Feature Importance & prediction</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <i class="fas fa-tree"></i><span>Genetic & Environment Risk</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <i class="fas fa-heartbeat"></i><span>Lifestyle & Health factor</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <i class="fas fa-fire"></i><span>Challenges</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <i class="fas fa-magic"></i><span>Spark</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <i class="fas fa-brain"></i><span>Alzhiemrs</span>
+        </div>
+        <div id="nav-content-highlight"></div>
+      </div>
+      <input id="nav-footer-toggle" type="checkbox" />
+      <div id="nav-footer">
+        <div id="nav-footer-heading">
+          <div id="nav-footer-avatar">
+            <img
+              src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"
+            />
+          </div>
+          <div id="nav-footer-titlebox">
+            <a
+              id="nav-footer-title"
+              href="https://codepen.io/uahnbu/pens/public"
+              target="_blank"
+              >Shivendra</a
+            ><span id="nav-footer-subtitle">Admin</span>
+          </div>
+          <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+        </div>
+        <div id="nav-footer-content">
+          <Lorem
+            >ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</Lorem
+          >
+        </div>
+      </div>
+    </div>
+    <main >
+      <section class="fade-in">
+        <h2>Diagnosis Rate by Age Group</h2>
+        <p>
+          The chart below illustrates the rate of diagnosis among different age
+          groups.
+        </p>
+        <img
+          src="{{url_for('static', filename='charts/rate_by_age_group.png')}}"
+          alt="Chart showing diagnosis rate by age group"
+        />
+      </section>
 
-  <section class="fade-in">
-    <h2>Gender Distribution</h2>
-    <p>This chart provides a visual breakdown of gender distribution in the dataset.</p>
-    <img src="{{url_for('static', filename='charts/Gender_distribution.png')}}" alt="Chart showing gender distribution">
-  </section>
+      <section class="fade-in">
+        <h2>Gender Distribution</h2>
+        <p>
+          This chart provides a visual breakdown of gender distribution in the
+          dataset.
+        </p>
+        <img
+          src="{{url_for('static', filename='charts/Gender_distribution.png')}}"
+          alt="Chart showing gender distribution"
+        />
+      </section>
 
-  <section class="fade-in">
-    <h2>Diagnosis Rate by Education Level</h2>
-    <p>Explore how education level correlates with diagnosis rates in this visualization.</p>
-    <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_education.png')}}" alt="Chart showing diagnosis rate by education level">
-  </section>
+      <section class="fade-in">
+        <h2>Diagnosis Rate by Education Level</h2>
+        <p>
+          Explore how education level correlates with diagnosis rates in this
+          visualization.
+        </p>
+        <img
+          src="{{url_for('static', filename='charts/Diagnosis_rate_by_education.png')}}"
+          alt="Chart showing diagnosis rate by education level"
+        />
+      </section>
 
-  <section class="fade-in">
-    <h2>Diagnosis Rate by Country</h2>
-    <p>This chart shows diagnosis by country.</p>
-    <img src="{{url_for('static', filename='charts/Diagnosis_rate_by_Country.png')}}" alt="Chart showing diagnosis rate by country">
-  </section>
-</main>
+      <section class="fade-in">
+        <h2>Diagnosis Rate by Country</h2>
+        <p>This chart shows diagnosis by country.</p>
+        <img
+          src="{{url_for('static', filename='charts/Diagnosis_rate_by_Country.png')}}"
+          alt="Chart showing diagnosis rate by country"
+        />
+      </section>
+    </main>
 
-<footer>
-  <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
-</footer>
+    <footer>
+      <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
+    </footer>
 
-<!-- Scroll Animation Script -->
-<script>
-  const sections = document.querySelectorAll('.fade-in');
+    <!-- Scroll Animation Script -->
+    <script>
+      const sections = document.querySelectorAll(".fade-in");
 
-  const revealOnScroll = () => {
-    const triggerBottom = window.innerHeight * 0.85;
+      const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
 
-    sections.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top;
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
 
-      if (sectionTop < triggerBottom) {
-        section.classList.add('animate');
-      }
-    });
-  };
+          if (sectionTop < triggerBottom) {
+            section.classList.add("animate");
+          }
+        });
+      };
 
-  window.addEventListener('scroll', revealOnScroll);
-  window.addEventListener('load', revealOnScroll);
-</script>
-
-</body>
+      window.addEventListener("scroll", revealOnScroll);
+      window.addEventListener("load", revealOnScroll);
+    </script>
+  </body>
 </html>

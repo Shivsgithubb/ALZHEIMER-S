@@ -51,7 +51,7 @@ html, body {
   pointer-events: none; }
 
 #nav-bar {
-  position: absolute;
+  position: fixed;  /* Changed from absolute to fixed */
   left: 1vw;
   top: 1vw;
   height: calc(100% - 2vw);
@@ -62,7 +62,9 @@ html, body {
   color: var(--navbar-light-primary);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   overflow: hidden;
-  user-select: none; }
+  user-select: none;
+  z-index: 1000;  /* Added z-index */
+  width: var(--navbar-width);  /* Added explicit width */ }
   #nav-bar hr {
     margin: 0;
     position: relative;
