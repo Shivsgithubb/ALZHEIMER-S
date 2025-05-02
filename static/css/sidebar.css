@@ -51,11 +51,7 @@ html, body {
   pointer-events: none; }
 
 #nav-bar {
-<<<<<<< HEAD
-  position: fixed;  /* Changed from absolute to fixed */
-=======
   position: fixed;
->>>>>>> 5ea8b225c7fe169725b63d6d993dfc2bce4a003e
   left: 1vw;
   top: 1vw;
   height: calc(100% - 2vw);
@@ -67,12 +63,7 @@ html, body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   overflow: hidden;
   user-select: none;
-<<<<<<< HEAD
-  z-index: 1000;  /* Added z-index */
-  width: var(--navbar-width);  /* Added explicit width */ }
-=======
   z-index: 1000; }
->>>>>>> 5ea8b225c7fe169725b63d6d993dfc2bce4a003e
   #nav-bar hr {
     margin: 0;
     position: relative;
