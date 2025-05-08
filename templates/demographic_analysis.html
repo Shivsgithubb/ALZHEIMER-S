@@ -97,69 +97,54 @@
       margin: 0 auto;
     }
 
-    .insights-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .insight-card {
-      background: white;
-      padding: 2rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(108, 99, 255, 0.1);
-    }
-
     .insight-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--gradient-primary);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    .insight-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(108, 99, 255, 0.2);
-    }
+.insight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(108, 99, 255, 0.2);
+}
 
-    .insight-card:hover::before {
-      transform: scaleX(1);
-    }
+.insight-card:hover::before {
+  transform: scaleX(1);
+}
 
-    .insight-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+.insight-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-    .insight-card h3 i {
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 1.8rem;
-    }
+.insight-card h3 i {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+}
 
-    .insight-card p {
-      color: var(--text-color);
-      font-size: 1.1rem;
-      line-height: 1.6;
-      opacity: 0.8;
-    }
+.insight-card p {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+
+    
 
     .chart-section {
       background: white;
@@ -370,8 +355,8 @@
   <div id="nav-bar">
     <input id="nav-toggle" type="checkbox" />
     <div id="nav-header">
-      <a id="nav-title" href="https://codepen.io" target="_blank">
-        <pre>    Graphs Analysis</pre>
+      <a id="nav-title" href="/login" target="_blank">
+        <pre>  Login/Sign up</pre>
       </a>
       <hr />
       <label for="nav-toggle"><span id="nav-toggle"></span></label>
@@ -385,14 +370,14 @@
       </div>
       <hr />
 
-      <div class="nav-button">
-        <i class="fas fa-key"></i><span>Feature Importance & prediction</span>
-      </div>
-      <hr />
-      <div class="nav-button">
-        <i class="fas fa-tree"></i><span>Genetic & Environment Risk</span>
-      </div>
-      <hr />
+  
+      <a href="/Genetic_and_environment">
+        <div class="nav-button">
+          <i class="fas fa-tree"></i><span>Genetic & Environment Risk</span>
+        </a>
+        </div>
+        <hr/>
+      
       <div class="nav-button">
         <i class="fas fa-heartbeat"></i><span>Lifestyle & Health factor</span>
       </div>
@@ -410,7 +395,7 @@
       </div>
       <hr />
       <div class="nav-button">
-        <i class="fas fa-brain"></i><span>Alzhiemrs</span>
+        <i class="fas fa-brain"></i><span>Alzhiemers</span>
       </div>
       <div id="nav-content-highlight"></div>
     </div>
@@ -456,6 +441,7 @@
         <p>Examining regional variations in Alzheimer's diagnosis across different countries.</p>
       </div>
     </div>
+    
 
     <div class="chart-section fade-in">
       <h2>Diagnosis Rate by Age Group</h2>

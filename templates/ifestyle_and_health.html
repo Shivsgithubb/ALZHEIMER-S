@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lifestyle and Health - Alzheimer Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .graph-container {
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px #ccc;
+            border-radius: 8px;
+            width: 95%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lifestyle and Health Factors Related to Alzheimer's</h1>
+    
+    <div class="graph-container">
+        <h2>Smoking and Alcohol Analysis</h2>
+        {{ graph1|safe }}
+    </div>
+
+    <div class="graph-container">
+        <h2>Age, BMI, and Physical Activity</h2>
+        {{ graph2|safe }}
+    </div>
+</body>
+</html>
