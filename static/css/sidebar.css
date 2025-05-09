@@ -51,7 +51,7 @@ html, body {
   pointer-events: none; }
 
 #nav-bar {
-  position: absolute;
+  position: fixed;
   left: 1vw;
   top: 1vw;
   height: calc(100% - 2vw);
@@ -62,7 +62,8 @@ html, body {
   color: var(--navbar-light-primary);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   overflow: hidden;
-  user-select: none; }
+  user-select: none;
+  z-index: 1000; }
   #nav-bar hr {
     margin: 0;
     position: relative;
@@ -333,4 +334,10 @@ label[for="nav-footer-toggle"] {
 .nav-button:hover {
   /* background-color: var(--navbar-dark-secondary); */
   border-radius: 8px;
+}
+
+.dashboard-container {
+  margin-left: calc(var(--navbar-width) + 2vw);
+  padding: 20px;
+  width: calc(100% - var(--navbar-width) - 4vw);
 }

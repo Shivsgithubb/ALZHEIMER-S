@@ -1,284 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ALZHEIMER'S PREDICTION</title>
 
-    <!-- font awesome cdn link  -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALZHEIMER'S PREDICTION</title>
 
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="static\css\index.css" />
-  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .center-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    ul {
+      text-align: left;
+      display: inline-block;
+    }
+  </style>
 
-  <body>
-    <!-- header navbar section start  -->
-    <!---->
-    <link rel="stylesheet" href="static\css\sidebar.css" />
-    
-    <!---->
-    <header>
-      <!-- navbar link  -->
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-      <a href="#" class="logo"
-        ><span>A</span>lzheimer <span>P</span>rediction
-      </a>
-      <nav class="navbar">
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#data">Data Insights</a></li>
-          <li><a href="#research">Research</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="/login">Login</a></li>
-        </ul>
-      </nav>
-      <div class="fas fa-bars"></div>
-    </header>
-    <!-- header navbar section end  -->
+  <!-- custom css file link  -->
+  <link rel="stylesheet" href="static\css\index.css" />
+</head>
 
-    <!-- home section start  -->
+<body>
+  <!-- header navbar section start  -->
+  <!---->
+  <link rel="stylesheet" href="static\css\sidebar.css" />
 
-    <section id="home" class="home">
-      <div class="row">
-        <!-- home images  -->
-        <div class="images">
-          <img src="static/images/home.png" alt="" />
+  <!---->
+  <header>
+    <!-- navbar link  -->
+
+    <a href="#" class="logo"><span>A</span>lzheimer <span>P</span>rediction
+    </a>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#data">Data Insights</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </nav>
+    <div class="fas fa-bars"></div>
+  </header>
+  <!-- header navbar section end  -->
+
+  <!-- Home Section -->
+  <section id="home" class="home" data-aos="fade-up" style="padding: 100px 0; background: linear-gradient(to right, #f9f9f9, #ffffff);">
+    <div class="row" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; max-width: 1200px; margin: auto;">
+      
+      <!-- Image Side -->
+      <div class="images" data-aos="zoom-in" style="flex: 1 1 400px; text-align: center;">
+        <img src="static/images/home.png" alt="Home Image" style="max-width: 100%; height: auto;" />
+      </div>
+  
+      <!-- Content Side -->
+      <div class="content" data-aos="fade-left" style="flex: 1 1 500px; padding: 20px;">
+        <h1 style="font-size: 42px; color: #2c3e50;">
+          <span style="color: #6C63FF;">Understanding</span> Alzheimer's<br />
+          <span style="color: #6C63FF;">Through</span> Data
+        </h1>
+  
+        <p style="font-size: 18px; line-height: 1.7; color: #555; margin-top: 20px;">
+          Dive into interactive visualizations, breakthrough research, and global trends in Alzheimer's disease.<br/>
+          Empowering healthcare with data science for early diagnosis and treatment insights.
+        </p>
+  
+        <!-- Quick Stats -->
+        <div class="quick-stats" style="margin-top: 30px; display: flex; gap: 30px; flex-wrap: wrap;">
+          <div style="flex: 1 1 150px;">
+            <h2 style="font-size: 30px; color: #27ae60; margin: 0;">55M+</h2>
+            <p style="font-size: 14px; color: #555;">People affected worldwide</p>
+          </div>
+          <div style="flex: 1 1 150px;">
+            <h2 style="font-size: 30px; color: #2980b9; margin: 0;">70%</h2>
+            <p style="font-size: 14px; color: #555;">Of dementia cases are Alzheimer's</p>
+          </div>
+          <div style="flex: 1 1 150px;">
+            <h2 style="font-size: 30px; color: #e67e22; margin: 0;">2030</h2>
+            <p style="font-size: 14px; color: #555;">Projected 78M global cases</p>
+          </div>
         </div>
+  
+        <!-- Buttons -->
+        <div class="hero-buttons" style="margin-top: 40px;">
+          <a href="#data"><button class="button" style="padding: -5px 2px; font-size: 16px; margin-right: 15px;">📊 View Data</button></a>
+          <a href="#research"><button class="button" style="padding: -5px 2px; font-size: 16px;">🧪Research</button></a>
+        </div>
+  
+        <!-- CTA Note -->
+        <p style="margin-top: 20px; font-size: 14px; color: #888;">Stay informed. Be proactive. Join the movement against Alzheimer’s.</p>
+      </div>
+    </div>
+  </section>
+  
 
-        <!-- home heading  -->
+
+  <!-- Data Insights Section -->
+  <section id="data" class="data" data-aos="fade-up" style="padding: 70px 0; background-color: #f9f9f9;">
+    <div class="center-content" style="max-width: 1200px; margin: auto;">
+      <h1 class="heading" style="font-size: 40px;">Global Alzheimer's Data Insights</h1>
+      <h3 class="title" style="font-size: 24px; color: #444;">Explore key facts, figures, and findings from global studies (2024–2025)</h3>
+  
+      <div class="data-boxes" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 50px;">
+        <div class="data-card">
+          <h3>🌍 Worldwide Prevalence</h3>
+          <p>More than <strong>55 million</strong> people currently live with dementia, with <strong>Alzheimer’s</strong> making up 60–70% of these cases. This number is expected to reach <strong>78 million by 2030</strong>.</p>
+        </div>
+  
+        <div class="data-card">
+          <h3>📊 Cases by Region</h3>
+          <ul>
+            <li><strong>Asia:</strong> 22 million+</li>
+            <li><strong>Europe:</strong> 10 million+</li>
+            <li><strong>North America:</strong> 6 million+</li>
+            <li><strong>Fastest Growth:</strong> Africa & South America</li>
+          </ul>
+        </div>
+  
+        <div class="data-card">
+          <h3>🎯 Risk Factors</h3>
+          <ul>
+            <li>High blood pressure, obesity</li>
+            <li>Diabetes, smoking, inactivity</li>
+            <li>Low education & poor diet</li>
+          </ul>
+        </div>
+  
+        <div class="data-card">
+          <h3>👵 Age-Specific Trends</h3>
+          <p>The risk of Alzheimer’s doubles every <strong>5 years after age 65</strong>. Nearly <strong>1 in 3 seniors</strong> dies with Alzheimer’s or related dementia.</p>
+        </div>
+  
+        <div class="data-card">
+          <h3>🧬 Gender & Ethnicity</h3>
+          <p>
+            Women are <strong>twice as likely</strong> to develop Alzheimer’s. Black and Hispanic populations show <strong>higher risk</strong> but lower diagnosis rates.
+          </p>
+        </div>
+  
+        <div class="data-card">
+          <h3>💰 Economic Toll</h3>
+          <p>Dementia care costs exceed <strong>$1.3 trillion</strong> globally and may hit <strong>$2.8 trillion by 2030</strong>.</p>
+        </div>
+      </div>
+  
+      <div style="margin-top: 60px; text-align: center;">
+        <a href="/dashboard"><button class="button" style="padding: 5px 25px; font-size: 18px;">Explore</button></a>
+        <p style="margin-top: 20px; font-size: 16px; color: #555;">Join the global effort by contributing anonymized data or participating in awareness initiatives.</p>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    .data-card {
+      flex: 1 1 360px;
+      background: #fff;
+      padding: 30px;
+      min-height: 300px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  
+    .data-card h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+  
+    .data-card ul {
+      padding-left: 20px;
+      text-align: left;
+    }
+  
+    .data-card p {
+      color: #333;
+    }
+  </style>
+  
+  
+  
+  
+
+
+  <!-- About Section -->
+  <section id="about" class="about" data-aos="fade-up">
+    <h1 class="heading" data-aos="fade-in">about our facility</h1>
+    <h3 class="title" data-aos="fade-in" data-aos-delay="100">learn and explore our facility</h3>
+    <div class="box-container">
+      <div class="box" data-aos="fade-right">
+        <div class="images"><img src="static/images/about-1.png" alt="" /></div>
         <div class="content">
-          <h1>
-            <span>Understanding</span> Alzheimer's <span>Through</span> Data
-          </h1>
-          <p>
-            Explore interactive visualizations of the latest research and global
-            statistics
-          </p>
-          <div class="hero-buttons">
-            <a href="#data"><button class="button">View Data</button></a>
-            <a href="#research"><button class="button">New Research</button></a>
-          </div>
+          <h3>ambulance services</h3>
+          <p>...</p>
+          <a href="#"><button class="button">learn more</button></a>
         </div>
       </div>
-    </section>
-    <!-- home section end  -->
-
-    <!-- about section start  -->
-
-    <section id="about" class="about">
-      <h1 class="heading">about our facility</h1>
-      <h3 class="title">learn and explore our facility</h3>
-
-      <div class="box-container">
-        <!-- start here  -->
-        <div class="box">
-          <!-- about images  -->
-          <div class="images">
-            <img src="static/images/about-1.png" alt="" />
-          </div>
-
-          <!-- about heading & text  -->
-          <div class="content">
-            <h3>ambulance services</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-              necessitatibus omnis unde dolore suscipit magnam officia. Maxime
-              explicabo qui distinctio?
-            </p>
-            <a href="#"><button class="button">learn more</button></a>
-          </div>
-        </div>
-        <!-- end here  -->
-
-        <!-- start here  -->
-        <div class="box">
-          <!-- about images  -->
-          <div class="images">
-            <img src="static/images/about-2.png" alt="" />
-          </div>
-
-          <!-- about heading & text  -->
-          <div class="content">
-            <h3>emergency rooms</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-              necessitatibus omnis unde dolore suscipit magnam officia. Maxime
-              explicabo qui distinctio?
-            </p>
-            <a href="#"><button class="button">learn more</button></a>
-          </div>
-        </div>
-        <!-- end here  -->
-
-        <!-- start here  -->
-        <div class="box">
-          <!-- about images  -->
-          <div class="images">
-            <img src="static/images/about-3.png" alt="" />
-          </div>
-
-          <!-- about heading & text  -->
-          <div class="content">
-            <h3>free check-ups</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-              necessitatibus omnis unde dolore suscipit magnam officia. Maxime
-              explicabo qui distinctio?
-            </p>
-            <a href="#"><button class="button">learn more</button></a>
-          </div>
-        </div>
-        <!-- end here  -->
-      </div>
-    </section>
-
-    <!-- about section end  -->
-
-    <!-- card section start  -->
-
-    <section id="doctor" class="card">
-      <div class="container">
-        <h1 class="heading">doctors</h1>
-        <h3 class="title">our professional doctors</h3>
-
-        <div class="box-container">
-          <!-- start here  -->
-          <div class="box">
-            <img src="static/images/doctor-1.jpg" alt="" />
-
-            <div class="content">
-              <a href="#">
-                <h2>john doe</h2>
-              </a>
-              <p>professional</p>
-
-              <!-- card icons  -->
-              <div class="icons">
-                <a href="#" class="fab fa-facebook-f"></a>
-                <a href="#" class="fab fa-twitter"></a>
-                <a href="#" class="fab fa-instagram"></a>
-              </div>
-            </div>
-          </div>
-          <!-- end here  -->
-
-          <!-- start here  -->
-          <div class="box">
-            <img src="static/images/doctor-2.jpg" alt="" />
-
-            <div class="content">
-              <a href="#">
-                <h2>john doe</h2>
-              </a>
-              <p>professional</p>
-
-              <!-- card icons  -->
-              <div class="icons">
-                <a href="#" class="fab fa-facebook-f"></a>
-                <a href="#" class="fab fa-twitter"></a>
-                <a href="#" class="fab fa-instagram"></a>
-              </div>
-            </div>
-          </div>
-          <!-- end here  -->
-
-          <!-- start here  -->
-          <div class="box">
-            <img src="static/images/doctor-3.jpg" alt="" />
-
-            <div class="content">
-              <a href="#">
-                <h2>john doe</h2>
-              </a>
-              <p>professional</p>
-
-              <!-- card icons  -->
-              <div class="icons">
-                <a href="#" class="fab fa-facebook-f"></a>
-                <a href="#" class="fab fa-twitter"></a>
-                <a href="#" class="fab fa-instagram"></a>
-              </div>
-            </div>
-          </div>
-          <!-- end here  -->
+      <div class="box" data-aos="fade-up" data-aos-delay="100">
+        <div class="images"><img src="static/images/about-2.png" alt="" /></div>
+        <div class="content">
+          <h3>emergency rooms</h3>
+          <p>...</p>
+          <a href="#"><button class="button">learn more</button></a>
         </div>
       </div>
-    </section>
-    <!-- card section end  -->
-
-    <!-- review section start  -->
-
-    <section id="review" class="review">
-      <h1 class="heading">our patient review</h1>
-      <h3 class="title">what patient says about us</h3>
-
-      <div class="box-container">
-        <!-- start here  -->
-        <div class="box">
-          <i class="fas fa-quote-left"></i>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus,
-            sit quam ab at nulla quae excepturi laboriosam mollitia illo eius?
-          </p>
-
-          <div class="images">
-            <img src="static/images/img-1.jpg" alt="" />
-
-            <div class="info">
-              <h3>john doe</h3>
-              <span>date : 11 2024</span>
-            </div>
-          </div>
+      <div class="box" data-aos="fade-left" data-aos-delay="200">
+        <div class="images"><img src="static/images/about-3.png" alt="" /></div>
+        <div class="content">
+          <h3>free check-ups</h3>
+          <p>...</p>
+          <a href="#"><button class="button">learn more</button></a>
         </div>
-        <!-- end here  -->
-
-        <!-- start here  -->
-        <div class="box">
-          <i class="fas fa-quote-left"></i>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus,
-            sit quam ab at nulla quae excepturi laboriosam mollitia illo eius?
-          </p>
-
-          <div class="images">
-            <img src="static/images/img-2.jpg" alt="" />
-
-            <div class="info">
-              <h3>john doe</h3>
-              <span>date : 11 2024</span>
-            </div>
-          </div>
-        </div>
-        <!-- end here  -->
-
-        <!-- start here  -->
-        <div class="box">
-          <i class="fas fa-quote-left"></i>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus,
-            sit quam ab at nulla quae excepturi laboriosam mollitia illo eius?
-          </p>
-
-          <div class="images">
-            <img src="static/images/img-3.jpg" alt="" />
-
-            <div class="info">
-              <h3>john doe</h3>
-              <span>date : 11 2024</span>
-            </div>
-          </div>
-        </div>
-        <!-- end here  -->
       </div>
-    </section>
-    <!-- review section end  -->
+    </div>
+  </section>
 
-    <!-- contact section start  -->
+  <!-- contact section start  -->
 
     <section id="contact" class="contact">
       <h1 class="heading">contact us</h1>
@@ -303,179 +250,144 @@
 
     <!-- contact section end  -->
 
-    <!-- blog section start  -->
-
-    <section id="blog" class="blog">
-      <h1 class="heading">blog</h1>
-      <h3 class="title">Lorem ipsum dolor sit amet.</h3>
-
+  <!-- Doctors Section -->
+  <section id="doctor" class="card" data-aos="zoom-in">
+    <div class="container">
+      <h1 class="heading">doctors</h1>
+      <h3 class="title" data-aos="fade-in">our professional doctors</h3>
       <div class="box-container">
-        <!-- start here  -->
-        <div class="box">
-          <!-- images  -->
-          <img src="static/images/blog 1.png" alt="" />
-
+        <div class="box" data-aos="flip-left">
+          <img src="static/images/doctor-1.jpg" alt="" />
           <div class="content">
             <a href="#">
-              <h2>diabetes</h2>
+              <h2>john doe</h2>
             </a>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-              obcaecati iusto aliquid quam repudiandae voluptas!
-            </p>
-            <!-- button  -->
-            <a href="#"> <button class="button">learn more</button></a>
+            <p>professional</p>
+            <div class="icons">
+              <a href="#" class="fab fa-facebook-f"></a>
+              <a href="#" class="fab fa-twitter"></a>
+              <a href="#" class="fab fa-instagram"></a>
+            </div>
           </div>
         </div>
-        <!-- end here  -->
-
-        <!-- start here  -->
-        <div class="box">
-          <!-- images  -->
-          <img src="static/images/blog 2.png" alt="" />
-
-          <div class="content">
-            <a href="#">
-              <h2>covid-19 vaccine</h2>
-            </a>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-              obcaecati iusto aliquid quam repudiandae voluptas!
-            </p>
-            <!-- button  -->
-            <a href="#"> <button class="button">learn more</button></a>
-          </div>
-        </div>
-        <!-- end here  -->
-
-        <!-- start here  -->
-        <div class="box">
-          <!-- images  -->
-          <img src="static/images/blog 3.png" alt="" />
-
-          <div class="content">
-            <a href="#">
-              <h2>prevent epidemic</h2>
-            </a>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-              obcaecati iusto aliquid quam repudiandae voluptas!
-            </p>
-            <!-- button  -->
-            <a href="#"> <button class="button">learn more</button></a>
-          </div>
-        </div>
-        <!-- end here  -->
+        <!-- Add similar data-aos to other doctor boxes -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- blog section end  -->
-
-    <section id="data" class="data-viz">
-      <h1 class="heading">Data Insights</h1>
-      <h3 class="title">Interactive Alzheimer's Statistics</h3>
-
-      <div class="viz-container">
-        <!-- Time Series Graph -->
-        <div class="viz-box">
-          <h3>Global Prevalence Over Time</h3>
-          <div class="graph-container" id="prevalence-graph"></div>
-          <div class="graph-controls">
-            <select id="region-select">
-              <option value="world">World</option>
-              <option value="na">North America</option>
-              <option value="eu">Europe</option>
-              <option value="asia">Asia</option>
-            </select>
-            <button class="download-btn">Download Data</button>
-          </div>
-        </div>
-
-        <!-- Brain Regions Affected -->
-        <div class="viz-box">
-          <h3>Brain Regions Impacted</h3>
-          <div class="brain-model" id="3d-brain"></div>
-          <div class="region-info">
-            <p>
-              Click on brain regions to learn about their functions and
-              Alzheimer's impact
-            </p>
+  <!-- Review Section -->
+  <section id="review" class="review" data-aos="fade-up">
+    <h1 class="heading">our patient review</h1>
+    <h3 class="title">what patient says about us</h3>
+    <div class="box-container">
+      <div class="box" data-aos="zoom-in">
+        <i class="fas fa-quote-left"></i>
+        <p>...</p>
+        <div class="images">
+          <img src="static/images/img-1.jpg" alt="" />
+          <div class="info">
+            <h3>john doe</h3><span>date : 11 2024</span>
           </div>
         </div>
       </div>
-    </section>
+      <!-- Repeat for other reviews -->
+    </div>
+  </section>
 
-    <section id="research" class="research">
-      <h1 class="heading">Latest Research</h1>
-      <h3 class="title">Peer-reviewed studies and clinical trials</h3>
-
-      <div class="research-filters">
-        <input
-          type="text"
-          placeholder="Search studies..."
-          id="research-search"
-        />
-        <select id="research-category">
-          <option value="all">All Categories</option>
-          <option value="prevention">Prevention</option>
-          <option value="treatment">Treatment</option>
-          <option value="diagnosis">Diagnosis</option>
-        </select>
+  <!-- Research Section -->
+  <section id="research" class="research" data-aos="fade-up">
+    <h1 class="heading">Latest Research</h1>
+    <h2 class="title">
+      <br/>
+      <div class="center-content">
+        <h2>🔬 Key Advances in Alzheimer's Research (2024–2025)</h2>
+        <br/>
+        <h3>1. Diagnostics:</h3>
+        <br/>
+        <ul>
+          <li><strong>Blood Tests:</strong> New blood biomarkers (e.g., p-tau217) can detect Alzheimer’s with high accuracy.</li>
+          <li><strong>AI and Quantum Tools:</strong> AI models and quantum computing are being used for early, accurate detection through brain scans and even handwriting analysis.</li>
+        </ul>
+        <br/>
+        <br/>
+        <h3>2. Treatments:</h3>
+        <br/>
+        <ul>
+          <li><strong>GLP-1 Drugs (e.g., Liraglutide):</strong> Originally for diabetes, these may slow brain shrinkage and cognitive decline.</li>
+          <li><strong>Anti-Tau Antibodies (E2814):</strong> Targeting tau proteins to prevent disease progression.</li>
+          <li><strong>Drug Repurposing:</strong> Cancer drugs like IDO1 inhibitors show potential to restore brain function.</li>
+        </ul>
+        <br/>
+        <br/>
+    
+        <h3>3. Prevention:</h3>
+        <br/>
+        <ul>
+          <li><strong>Lifestyle Management:</strong> Controlling obesity, diabetes, and blood pressure may slow cognitive decline.</li>
+          <li><strong>Vaccines and NSAIDs:</strong> Shingles vaccine may reduce dementia risk; long-term use of NSAIDs like ibuprofen may help.</li>
+        </ul>
+        <br/>
+        <br/>
+    
+        <h3>4. Clinical Trials:</h3>
+        <br/>
+        <ul>
+          <li><strong>DIAN-TU-003 ART:</strong> Testing if removing amyloid plaques delays dementia in genetically at-risk individuals.</li>
+          <li><strong>Tau NexGen Trial:</strong> Investigating E2814’s effectiveness in inherited and early-onset Alzheimer’s.</li>
+        </ul>
       </div>
+    </h2>
+    <!-- Rest of your research content -->
+  </section>
 
-      <div class="research-grid" id="research-results">
-        <!-- Will be populated by JavaScript -->
-      </div>
+  <!-- footer section start  -->
 
-      <div class="load-more">
-        <button class="button">Load More Studies</button>
-      </div>
-    </section>
+  <section class="footer">
+    <div class="box">
+      <h2 class="logo"><span>D</span>octors <span>C</span>ares</h2>
 
-    <!-- footer section start  -->
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+        laboriosam quisquam facere pariatur ratione porro et vero dolore
+        accusamus id?
+      </p>
+    </div>
 
-    <section class="footer">
-      <div class="box">
-        <h2 class="logo"><span>D</span>octors <span>C</span>ares</h2>
+    <div class="box">
+      <h2 class="logo"><span>S</span>hare</h2>
 
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-          laboriosam quisquam facere pariatur ratione porro et vero dolore
-          accusamus id?
-        </p>
-      </div>
+      <a href="#">facebook</a>
+      <a href="#">twitter</a>
+      <a href="#">instagram</a>
+      <a href="#">pinterest</a>
+    </div>
 
-      <div class="box">
-        <h2 class="logo"><span>S</span>hare</h2>
+    <div class="box">
+      <h2 class="logo"><span>L</span>inks</h2>
 
-        <a href="#">facebook</a>
-        <a href="#">twitter</a>
-        <a href="#">instagram</a>
-        <a href="#">pinterest</a>
-      </div>
+      <a href="#">home</a>
+      <a href="#">about</a>
+      <a href="#">Doctor</a>
+      <a href="#">Review</a>
+      <a href="#">contact</a>
+      <a href="#">blog</a>
+    </div>
 
-      <div class="box">
-        <h2 class="logo"><span>L</span>inks</h2>
-
-        <a href="#">home</a>
-        <a href="#">about</a>
-        <a href="#">Doctor</a>
-        <a href="#">Review</a>
-        <a href="#">contact</a>
-        <a href="#">blog</a>
-      </div>
-
-      <h1 class="credit">
-        created by <span>Website. Masters</span> all right reserved.
-      </h1>
-    </section>
-
-    <!-- footer section end  -->
 
     <!-- jquery cdn link  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- custom js file link  -->
     <script src="static/js/login.js"></script>
-  </body>
+    <!-- AOS JS Script -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    </script>
+
+</body>
+
 </html>
