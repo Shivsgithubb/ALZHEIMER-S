@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lifestyle and Health - Alzheimer Analysis</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
@@ -25,16 +26,29 @@
     </style>
 </head>
 <body>
-    <h1>Lifestyle and Health Factors Related to Alzheimer's</h1>
+    <h1>Lifestyle and Health Factors Dashboard</h1>
     
-    <div class="graph-container">
+    <div class="dashboard-container">
         <h2>Smoking and Alcohol Analysis</h2>
-        {{ graph1|safe }}
+        <div class="chart-section">
+            <h2><i class="fas fa-chart-bar"></i>Smoking and Alcohol Analysis</h2>
+            {{graph9|safe}}
+        </div>
     </div>
 
     <div class="graph-container">
         <h2>Age, BMI, and Physical Activity</h2>
-        {{ graph2|safe }}
+        {{graph10|safe}}
+    </div>
+
+    <div class="graph-container">
+        <h2>Physical  Levels and Alzheimer's Diagnosis Analysis</h2>
+        {{graph11|safe}}
+    </div>
+
+    <div class="graph-container">
+        <h2>Multi-Factor Analysis: Physical Activity, Age, and Health Indicators</h2>
+        {{graph12|safe}}
     </div>
 </body>
 </html>
