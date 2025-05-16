@@ -34,7 +34,7 @@ def age_distribution():
     labels = ['<30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90+']
     df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=labels, right=False)
     # Calculate diagnosis rate by age group
-    age_analysis = df.groupby('Age Group')['Alzheimer\'s Diagnosis'].apply(lambda x: (x == 'Yes').mean() * 100).reset_index()
+    age_analysis = df.groupby('Age Group')['Alzheimer’s Diagnosis'].apply(lambda x: (x == 'Yes').mean() * 100).reset_index()
     age_analysis.columns = ['Age Group', 'Diagnosis Rate (%)']
     # Create Plotly bar chart
     fig = px.bar(age_analysis, 
@@ -62,7 +62,7 @@ def age_distribution():
 
 def gender_distribution():
     # Calculate gender distribution for diagnosed and non-diagnosed cases
-    gender_diagnosis = pd.crosstab(df['Gender'], df['Alzheimer’s Diagnosisosis'])
+    gender_diagnosis = pd.crosstab(df['Gender'], df['Alzheimer’s Diagnosis'])
     # Create two subplots
     fig = make_subplots(rows=1, cols=2, 
                         subplot_titles=('Gender Distribution - Diagnosed', 'Gender Distribution - Not Diagnosed'),
@@ -221,6 +221,10 @@ def BMI_distribution():
     return graph10_html
 
 def physical_activity():
+    # Create a cross-tabulation of Physical Activity Level and Alzheimer's Diagnosis
+    activity_ct = pd.crosstab(df["Physical Activity Level"], df["Alzheimer’s Diagnosis"])
+    
+    # Calculate percentages
     activity_percentages = pd.DataFrame()
     for level in ['Low', 'Medium', 'High']:
         total = activity_ct.loc[level, 'No'] + activity_ct.loc[level, 'Yes']
@@ -564,7 +568,7 @@ def lifestyle():
     graph12 = Multifactor_analysis()
     return render_template('Lifestyle_and_health_factors.html', graph9=graph9, graph10=graph10, graph11=graph11, graph12=graph12)
 
-@app.route('/socioeconomic & social engagement')
+@app.route('/socioeconomic_&_social_engagement')
 def socioeconomic():
     graph13 = Diagnosis_by_income_level()
     graph14 = Diagnosis_by_Employment_status()
@@ -579,7 +583,7 @@ def cognitive():
     graph19 = Sleep_Quality_Disrtribution()
     graph20 = Sleep_Quality_and_Alzheimers_Diagnosis()
 
-    return render_template('cognitive_psychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
+    return render_template('cognitive_phsychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

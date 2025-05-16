@@ -142,6 +142,7 @@
 
 .insight-card h3 i {
   background: var(--gradient-primary);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 1.8rem;
@@ -367,47 +368,58 @@
   <div id="nav-bar">
     <input id="nav-toggle" type="checkbox" />
     <div id="nav-header">
-      <a id="nav-title" href="/login" target="_blank">
+      <a id="nav-title" href="{{url_for('login')}}" target="_blank">
         <pre>  Login/Sign up</pre>
       </a>
       <hr />
       <label for="nav-toggle"><span id="nav-toggle"></span></label>
       <hr />
     </div>
-    <div id="nav-content">
-      <div class="nav-button">
-        <a href="/demographic_analysis">
+    <div id="nav-content">      <div class="nav-button">
+        <a href="{{url_for('demographics')}}">
           <i class="fas fa-chart-line"></i><span>Demographic Analysis</span>
         </a>
       </div>
       <hr />
 
-  
-      <a href="/Genetic_and_environment">
-        <div class="nav-button">
+      <div class="nav-button">
+        <a href="{{url_for('genetic')}}">
           <i class="fas fa-tree"></i><span>Genetic & Environment Risk</span>
         </a>
-        </div>
-        <hr/>
+      </div>
+      <hr/>
       
       <div class="nav-button">
-        <i class="fas fa-heartbeat"></i><span>Lifestyle & Health factor</span>
+        <a href="{{url_for('lifestyle')}}">
+          <i class="fas fa-heartbeat"></i><span>Lifestyle & Health factor</span>
+        </a>
       </div>
       <hr />
-      <div class="nav-button">
-        <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
+        <div class="nav-button">
+        <a href="{{url_for('socioeconomic')}}">
+          <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
+        </a>
       </div>
       <hr />
+      
       <div class="nav-button">
-        <i class="fas fa-fire"></i><span>Challenges</span>
+        <a href="{{url_for('dashboard')}}">
+          <i class="fas fa-fire"></i><span>Dashboard</span>
+        </a>
       </div>
       <hr />
+      
       <div class="nav-button">
-        <i class="fas fa-magic"></i><span>Spark</span>
+        <a href="{{url_for('index')}}">
+          <i class="fas fa-home"></i><span>Home</span>
+        </a>
       </div>
       <hr />
+      
       <div class="nav-button">
-        <i class="fas fa-brain"></i><span>Alzhiemers</span>
+        <a href="{{url_for('dashboard')}}">
+          <i class="fas fa-brain"></i><span>Dashboard</span>
+        </a>
       </div>
       <div id="nav-content-highlight"></div>
     </div>
@@ -429,94 +441,84 @@
     </div>
   </div>
 
-   <div class="dashboard-container">
-      <h2>Alzheimer's Diagnosis by Genetic Risk (APOE-ɛ4 allele)</h2>
-      <div class="chart-section">
-        <h2><i class="fas fa-chart-bar"></i>APOE-ɛ4 allele </h2>
-        {{graph5|safe}}
-      </div>
+  <div class="dashboard-container">
+    <header class="fade-in">
+      <h1>Genetic and Environmental Risk Factors</h1>
+      <p>Analyzing the impact of genetic predisposition and environmental influences on Alzheimer's disease development</p>
+    </header>
+
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-dna"></i>APOE-ɛ4 Allele Distribution</h2>
+      {{graph5|safe}}
       <div class="key-findings">
         <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
         <ul>
-          <li>Higher diagnosis rates observed in older age groups</li>
-          <li>Significant increase in diagnosis rates after age 65</li>
-          <li>Peak diagnosis rates in the 75-85 age range</li>
+          <li>Higher diagnosis rates observed in APOE-ɛ4 carriers</li>
+          <li>Significant correlation between allele presence and onset age</li>
+          <li>Multiple allele copies increase risk substantially</li>
         </ul>
       </div>
     </div>
 
-    <div class="dashboard-container">
-      <h2>Diagnosis Percentage by Urban vs Rural Living</h2>
-      <div class="chart-section">
-        <h2><i class="fas fa-chart-line"></i> Diagnosis Percentage by Urban vs Rural Living</h2>
-        {{graph6|safe}}
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-city"></i>Urban vs Rural Living Impact</h2>
+      {{graph6|safe}}
+      <div class="key-findings">
+        <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
+        <li>Different diagnosis rates between urban and rural areas</li>
+        <li>Environmental factors may influence disease progression</li>
+        <li>Access to healthcare facilities varies by location</li>
       </div>
+    </div>
+
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-cloud"></i>Air Pollution Exposure Analysis</h2>
+      {{graph7|safe}}
       <div class="key-findings">
         <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
         <ul>
-          <li>Gender-based variations in diagnosis rates</li>
-          <li>Potential biological and social factors influencing gender differences</li>
-          <li>Importance of gender-specific healthcare approaches</li>
+          <li>Correlation between air pollution levels and diagnosis rates</li>
+          <li>Long-term exposure effects on cognitive decline</li>
+          <li>Regional variations in pollution impact</li>
         </ul>
       </div>
     </div>
 
-    <div class="chart-section">
-      <h2>Air Pollution Exposure Distribution by Alzheimer's Diagnosis</h2>
-      <div class="chart-section">
-        <h2><i class="fas fa-chart-pie"></i> Air Pollution Exposure Distribution by Alzheimer's Diagnosis</h2>
-        {{graph7|safe}}
-      </div>
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-chart-pie"></i>Genetic Risk Distribution</h2>
+      {{graph8|safe}}
       <div class="key-findings">
         <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
         <ul>
-          <li>Regional disparities in diagnosis rates</li>
-          <li>Potential environmental and genetic factors influencing regional differences</li>
-          <li>Need for targeted healthcare interventions in high-risk regions</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="chart-section">
-      <h2>Distribution of APOE-ɛ4 Allele in Dataset</h2>
-      <div class="chart-section">
-        <h2><i class="fas fa-chart-bar"></i> Distribution of APOE-ɛ4 Allele in Dataset</h2>
-        {{graph8|safe}}
-      </div>
-      <div class="key-findings">
-        <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
-        <ul>
-          <li>Genetic risk scores show significant correlation with diagnosis rates</li>
-          <li>Potential for genetic screening in high-risk populations</li>
-          <li>Importance of genetic counseling and education</li>
+          <li>Distribution patterns of genetic risk factors</li>
+          <li>Interaction between genetic and environmental factors</li>
+          <li>Population-specific genetic variations</li>
         </ul>
       </div>
     </div>
     
-     <footer class="fade-in">
+    <footer class="fade-in">
       <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
     </footer>
   </div>
 
-<!-- Scroll Animation Script -->
-<script>
-    const fadeElements = document.querySelectorAll('.fade-in');
+  <!-- Add animation script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElems = document.querySelectorAll('.fade-in');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
 
-      const revealOnScroll = () => {
-        const triggerBottom = window.innerHeight * 0.85;
-
-      fadeElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-
-        if (elementTop < triggerBottom) {
-          element.classList.add('visible');
-      }
+      fadeElems.forEach(elem => observer.observe(elem));
     });
-  };
-
-  window.addEventListener('scroll', revealOnScroll);
-  window.addEventListener('load', revealOnScroll);
-</script>
-
+  </script>
 </body>
 </html>

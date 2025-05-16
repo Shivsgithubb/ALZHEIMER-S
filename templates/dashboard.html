@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>About Us - Alzheimer Research Hub</title>
+    <title>Alzheimer's Research Hub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Font Awesome for icons -->
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="static/css/dashboard.css" />
     <link rel="stylesheet" href="static/css/sidebar.css" />
 
-    <!-- Subtle animations (you can define this class in your CSS) -->
+    <!-- Dashboard-specific styles -->
     <style>
       .fade-in {
         animation: fadeIn 1.2s ease-in-out both;
@@ -29,6 +29,129 @@
           opacity: 1;
           transform: translateY(0);
         }
+      }      .dashboard-container {
+        margin-left: calc(var(--navbar-width) + 2vw);
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: calc(100% - var(--navbar-width) - 4vw);
+      }
+
+      .hero-section {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        margin-bottom: 3rem;
+        width: 90%;
+        max-width: 1200px;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-subtitle {
+        font-size: 1.5rem;
+        color: #7f8c8d;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 90%;
+        max-width: 1200px;
+      }
+
+      .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #3498db;
+        background: #f8f9fa;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-title {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
+
+      .feature-description {
+        color: #7f8c8d;
+        line-height: 1.6;
+        font-size: 1.1rem;
+      }
+
+      .cta-section {
+        margin-top: 3rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1.2rem 2.5rem;
+        font-size: 1.2rem;
+        color: white;
+        background: linear-gradient(135deg, #3498db, #2ecc71);
+        border-radius: 50px;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin: 0.5rem;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+      }
+
+      .cta-button i {
+        margin-right: 10px;
       }
     </style>
   </head>
@@ -112,58 +235,55 @@
       </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Dashboard Content -->
     <div class="dashboard-container fade-in">
-      <main>
-        <section class="intro">
-          <h2>Our Mission</h2>
-          <p>
-            The Alzheimer Research Hub is dedicated to advancing awareness,
-            research, and support for individuals and families affected by
-            Alzheimer's disease. We aim to make scientific findings more
-            accessible and connect the community with the latest developments in
-            treatment and care.
-          </p>
-        </section>
+      <div class="hero-section">
+        <h1 class="hero-title">Alzheimer's Research Hub</h1>
+        <p class="hero-subtitle">Advancing understanding through comprehensive data analysis and visualization of Alzheimer's disease patterns, risk factors, and research insights.</p>
+      </div>
 
-        <section class="details">
-          <h2>What We Offer</h2>
-          <ul>
-            <li>
-              <strong>Research Summaries:</strong> Simplified explanations of
-              current Alzheimer's research studies.
-            </li>
-            <li>
-              <strong>Data Insights:</strong> Interactive charts and
-              visualizations of Alzheimer-related trends.
-            </li>
-            <li>
-              <strong>Treatment Information:</strong> Overview of available
-              treatments and emerging therapies.
-            </li>
-            <li>
-              <strong>Community Support:</strong> Resources and guidance for
-              caregivers and patients.
-            </li>
-          </ul>
-        </section>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <h2 class="feature-title">Demographic Analysis</h2>
+          <p class="feature-description">Discover patterns and insights in age distribution, gender differences, education levels, and geographical prevalence of Alzheimer's disease.</p>
+        </div>
 
-        <section class="future">
-          <h2>What’s Coming Next?</h2>
-          <p>
-            We’re working on bringing you user accounts, personalized tracking,
-            and data uploads for collaborative analysis. Stay tuned for features
-            that will make our platform even more interactive and helpful.
-          </p>
-        </section>
-      </main>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-dna"></i>
+          </div>
+          <h2 class="feature-title">Genetic & Environmental</h2>
+          <p class="feature-description">Explore the complex interplay between genetic predisposition and environmental factors in Alzheimer's development.</p>
+        </div>
 
-      <footer>
-        <p>
-          &copy; 2025 Alzheimer Research Hub | Empowering Minds Through
-          Knowledge
-        </p>
-      </footer>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h2 class="feature-title">Lifestyle Impact</h2>
+          <p class="feature-description">Understand how daily habits, physical activity, and health conditions influence the risk and progression of Alzheimer's.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h2 class="feature-title">Social Factors</h2>
+          <p class="feature-description">Analyze the relationships between social engagement, economic factors, and cognitive health outcomes.</p>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <a href="/demographic_analysis" class="cta-button">
+          <i class="fas fa-chart-bar"></i>Begin Analysis
+        </a>
+        <a href="/about" class="cta-button">
+          <i class="fas fa-info-circle"></i>Learn More
+        </a>
+      </div>
     </div>
 
     <script src="static/js/main.js"></script>

@@ -4,51 +4,415 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lifestyle and Health - Alzheimer Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
+        :root {
+            --primary-color: #6C63FF;
+            --primary-light: #8B85FF;
+            --secondary-color: #f8f9fa;
+            --text-color: #2b2d42;
+            --accent-color: #FF6B6B;
+            --success-color: #4ECDC4;
+            --warning-color: #FFD93D;
+            --border-radius: 16px;
+            --box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+            --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%);
+            --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+            --gradient-success: linear-gradient(135deg, #4ECDC4 0%, #6EE7DE 100%);
+            --gradient-warning: linear-gradient(135deg, #FFD93D 0%, #FFE566 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f9f9f9;
+            font-family: 'Poppins', sans-serif;
+            background: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .graph-container {
-            margin: 40px auto;
-            background: white;
+
+        .dashboard-container {
+            margin-left: calc(var(--navbar-width) + 2vw);
             padding: 20px;
-            box-shadow: 0 0 10px #ccc;
-            border-radius: 8px;
-            width: 95%;
+            width: calc(100% - var(--navbar-width) - 4vw);
+        }
+
+        header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            animation: patternFloat 20s linear infinite;
+        }
+
+        @keyframes patternFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .chart-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-primary);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .chart-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(108, 99, 255, 0.15);
+        }
+
+        .chart-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .chart-section h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 28px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .chart-section h2 i {
+            font-size: 1.75rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .insight-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 200px;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.2);
+        }
+
+        .insight-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .insight-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .insight-card h3 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+        }
+
+        .insight-card p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 2.4rem;
+            }
+
+            .chart-section {
+                padding: 1.5rem;
+            }
+
+            .chart-section h2 {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Lifestyle and Health Factors Dashboard</h1>
-    
-    <div class="dashboard-container">
-        <h2>Smoking and Alcohol Analysis</h2>
-        <div class="chart-section">
-            <h2><i class="fas fa-chart-bar"></i>Smoking and Alcohol Analysis</h2>
-            {{graph9|safe}}
+    <!-- Sidebar Navigation -->
+    <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" />
+        <div id="nav-header">
+            <a id="nav-title" href="{{url_for('login')}}">
+                <pre>  Login/Sign up</pre>
+            </a>
+            <hr />
+            <label for="nav-toggle"><span id="nav-toggle"></span></label>
+            <hr />
+        </div>
+        <div id="nav-content">
+            <div class="nav-button">
+                <a href="{{url_for('demographics')}}">
+                    <i class="fas fa-chart-line"></i><span>Demographic Analysis</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('genetic')}}">
+                    <i class="fas fa-dna"></i><span>Genetic & Environment Risk</span>
+                </a>
+            </div>
+            <hr/>
+            
+            <div class="nav-button">
+                <a href="{{url_for('lifestyle')}}">
+                    <i class="fas fa-heartbeat"></i><span>Lifestyle & Health Factor</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('socioeconomic')}}">
+                    <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('dashboard')}}">
+                    <i class="fas fa-fire"></i><span>Dashboard</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('index')}}">
+                    <i class="fas fa-home"></i><span>Home</span>
+                </a>
+            </div>
+            <div id="nav-content-highlight"></div>
         </div>
     </div>
 
-    <div class="graph-container">
-        <h2>Age, BMI, and Physical Activity</h2>
-        {{graph10|safe}}
+    <div class="dashboard-container">
+        <header class="fade-in">
+            <h1>Lifestyle and Health Factors Analysis</h1>
+            <p>Understanding the impact of daily habits and health indicators on Alzheimer's disease progression</p>
+        </header>
+
+        <div class="chart-section fade-in">
+            <h2><i class="fas fa-smoking"></i>Smoking and Alcohol Consumption Patterns</h2>
+            {{graph9|safe}}
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3><i class="fas fa-chart-line"></i>Smoking Impact</h3>
+                    <p>Regular smokers show a significantly higher risk of Alzheimer's diagnosis compared to non-smokers, with former smokers showing intermediate risk levels.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-wine-glass"></i>Alcohol Correlation</h3>
+                    <p>Moderate alcohol consumption shows complex relationships with diagnosis rates, suggesting potential interactions with other lifestyle factors.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-user-clock"></i>Age Interaction</h3>
+                    <p>Combined effects of smoking and alcohol consumption appear more pronounced in older age groups, indicating cumulative impact over time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section fade-in">
+            <h2><i class="fas fa-weight"></i>Body Mass Index Distribution</h2>
+            {{graph10|safe}}
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3><i class="fas fa-weight-scale"></i>BMI Range</h3>
+                    <p>Individuals with extreme BMI values (both underweight and obese) show higher rates of Alzheimer's diagnosis compared to those in the normal range.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-chart-pie"></i>Distribution Pattern</h3>
+                    <p>The BMI distribution reveals significant differences between diagnosed and non-diagnosed groups, suggesting weight management's role in disease risk.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-arrows-up-down"></i>Weight Fluctuation</h3>
+                    <p>Patterns of BMI change over time may be more indicative of risk than static BMI measurements alone.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section fade-in">
+            <h2><i class="fas fa-running"></i>Physical Activity Impact</h2>
+            {{graph11|safe}}
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3><i class="fas fa-dumbbell"></i>Activity Levels</h3>
+                    <p>Higher levels of physical activity correlate with lower Alzheimer's diagnosis rates, particularly in regular exercise practitioners.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-brain"></i>Cognitive Benefits</h3>
+                    <p>Regular physical activity shows protective effects against cognitive decline, with moderate to high activity levels showing the strongest benefits.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-heart-pulse"></i>Health Impact</h3>
+                    <p>The relationship between physical activity and Alzheimer's risk appears to be mediated through multiple health pathways including cardiovascular health.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section fade-in">
+            <h2><i class="fas fa-chart-line"></i>Multi-Factor Health Analysis</h2>
+            {{graph12|safe}}
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3><i class="fas fa-network-wired"></i>Factor Interactions</h3>
+                    <p>Complex interactions between lifestyle factors suggest that the combined effect of multiple healthy behaviors may be greater than individual factors alone.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-sliders"></i>Risk Modulation</h3>
+                    <p>The impact of lifestyle factors on Alzheimer's risk appears to be modulated by age, suggesting different intervention strategies may be needed for different age groups.</p>
+                </div>
+                <div class="insight-card">
+                    <h3><i class="fas fa-bullseye"></i>Prevention Focus</h3>
+                    <p>Data supports a preventive approach focusing on multiple lifestyle modifications rather than single-factor interventions.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="graph-container">
-        <h2>Physical  Levels and Alzheimer's Diagnosis Analysis</h2>
-        {{graph11|safe}}
-    </div>
+    <!-- Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElems = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
 
-    <div class="graph-container">
-        <h2>Multi-Factor Analysis: Physical Activity, Age, and Health Indicators</h2>
-        {{graph12|safe}}
-    </div>
+            fadeElems.forEach(elem => observer.observe(elem));
+        });
+    </script>
 </body>
 </html>
