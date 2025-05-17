@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socioeconomic & Social Engagement Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- External CSS -->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}" />
+  <style>
+    :root {
+      --primary-color: #6C63FF;
+      --primary-light: #8B85FF;
+      --secondary-color: #f8f9fa;
+      --text-color: #2b2d42;
+      --accent-color: #FF6B6B;
+      --success-color: #4ECDC4;
+      --warning-color: #FFD93D;
+      --border-radius: 16px;
+      --box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+      --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%);
+      --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+      --gradient-success: linear-gradient(135deg, #4ECDC4 0%, #6EE7DE 100%);
+      --gradient-warning: linear-gradient(135deg, #FFD93D 0%, #FFE566 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .dashboard-container {
+      margin-left: calc(var(--navbar-width) + 2vw);
+      padding: 20px;
+      width: calc(100% - var(--navbar-width) - 4vw);
+    }
+
+    header {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 3rem;
+      text-align: center;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      animation: patternFloat 20s linear infinite;
+    }
+
+    @keyframes patternFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .insight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.insight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(108, 99, 255, 0.2);
+}
+
+.insight-card:hover::before {
+  transform: scaleX(1);
+}
+
+.insight-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.insight-card h3 i {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+}
+
+.insight-card p {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.insight-stat {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.insight-stat span {
+  font-size: 1rem;
+  color: #666;
+  -webkit-text-fill-color: #666;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+    .chart-section {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(108, 99, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: var(--gradient-primary);
+      opacity: 0.05;
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .chart-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(108, 99, 255, 0.15);
+    }
+
+    .chart-section h2 {
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .chart-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 28px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+    }
+
+    .chart-container {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 20px rgba(108, 99, 255, 0.08);
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(108, 99, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .chart-container:hover {
+      box-shadow: 0 8px 30px rgba(108, 99, 255, 0.12);
+    }
+
+    .key-findings {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--gradient-primary);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+      border-radius: var(--border-radius);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .key-findings::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .key-findings h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      position: relative;
+    }
+
+    .key-findings h4::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .key-findings ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .key-findings li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .key-findings li:before {
+      content: "→";
+      color: white;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      background: white;
+      color: var(--text-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    footer p {
+      position: relative;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2.4rem;
+      }
+
+      .chart-section {
+        padding: 1.5rem;
+      }
+
+      .chart-section h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* Animation classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--secondary-color);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-light);
+    }
+  </style>
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" />
+        <div id="nav-header">
+            <a id="nav-title" href="{{url_for('login')}}">
+                <pre>  Login/Sign up</pre>
+            </a>
+            <hr />
+            <label for="nav-toggle"><span id="nav-toggle"></span></label>
+            <hr />
+        </div>
+        <div id="nav-content">
+            <div class="nav-button">
+                <a href="{{url_for('demographics')}}">
+                    <i class="fas fa-chart-line"></i><span>Demographic Analysis</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('genetic')}}">
+                    <i class="fas fa-dna"></i><span>Genetic & Environment Risk</span>
+                </a>
+            </div>
+            <hr/>
+            
+            <div class="nav-button">
+                <a href="{{url_for('lifestyle')}}">
+                    <i class="fas fa-heartbeat"></i><span>Lifestyle & Health Factor</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('socioeconomic')}}">
+                    <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('dashboard')}}">
+                    <i class="fas fa-fire"></i><span>Dashboard</span>
+                </a>
+            </div>
+            <hr />
+            
+            <div class="nav-button">
+                <a href="{{url_for('index')}}">
+                    <i class="fas fa-home"></i><span>Home</span>
+                </a>
+            </div>
+            <div id="nav-content-highlight"></div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <header class="fade-in">
+            <h1>Socioeconomic & Social Engagement Analysis</h1>
+            <p>Understanding the impact of social and economic factors on Alzheimer's disease development</p>
+        </header>        <div class="insights-grid">
+            <div class="insight-card fade-in">
+                <i class="fas fa-money-bill-wave insight-icon"></i>
+                <h3>Economic Status</h3>
+                <p>Analyzing the relationship between income levels and Alzheimer's risk across different socioeconomic groups.</p>
+                <div class="insight-stat">35%<span>Higher Risk in Low Income</span></div>
+            </div>
+
+            <div class="insight-card fade-in">
+                <i class="fas fa-users insight-icon"></i>
+                <h3>Social Networks</h3>
+                <p>Understanding how social connections and community engagement influence cognitive health outcomes.</p>
+                <div class="insight-stat">2.5x<span>Protection with High Engagement</span></div>
+            </div>
+
+            <div class="insight-card fade-in">
+                <i class="fas fa-briefcase insight-icon"></i>
+                <h3>Professional Activity</h3>
+                <p>Examining the impact of employment status and work-related cognitive stimulation on disease risk.</p>
+                <div class="insight-stat">40%<span>Lower Risk in Employed</span></div>
+            </div>
+        </div>
+
+        <div class="chart-section fade-in">
+            <h2><i class="fas fa-money-bill-wave"></i>Income Level Impact Analysis</h2>
+            <div class="chart-container">
+                {{graph13|safe}}
+            </div>
+            <div class="key-findings">
+                <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
+                <ul>
+                    <li>Significant variations across income brackets</li>
+                    <li>Healthcare access disparity effects</li>
+                    <li>Resource availability impact on prevention</li>
+                </ul>
+            </div>
+        </div>        <div class="chart-section fade-in">
+            <h2><i class="fas fa-briefcase"></i>Employment Status Analysis</h2>
+            <div class="chart-container">
+                {{graph14|safe}}
+            </div>
+            <div class="key-findings">
+                <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
+                <ul>
+                    <li>Active employment correlates with better cognitive health</li>
+                    <li>Retirement timing affects disease progression</li>
+                    <li>Occupational complexity influences cognitive reserve</li>
+                </ul>
+            </div>
+        </div>        <div class="chart-section fade-in">
+            <h2><i class="fas fa-users"></i>Social Engagement Patterns</h2>
+            <div class="chart-container">
+                {{graph15|safe}}
+            </div>
+            <div class="key-findings">
+                <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
+                <ul>
+                    <li>Social engagement provides protective effects</li>
+                    <li>Community involvement enhances cognitive resilience</li>
+                    <li>Strong social networks improve disease outcomes</li>
+                </ul>
+            </div>
+        </div>        <div class="chart-section fade-in">
+            <h2><i class="fas fa-ring"></i>Marital Status Impact</h2>
+            <div class="chart-container">
+                {{graph16|safe}}
+            </div>
+            <div class="key-findings">
+                <h4><i class="fas fa-lightbulb"></i> Key Findings</h4>
+                <ul>
+                    <li>Marriage provides protective social support</li>
+                    <li>Living arrangements influence disease detection</li>
+                    <li>Partner presence aids symptom management</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="fade-in">
+            <p>&copy; 2025 Health Insights Inc. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElems = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            fadeElems.forEach(elem => observer.observe(elem));
+        });
+    </script>
+  </body>
+</html>

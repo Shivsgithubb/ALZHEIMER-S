@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive & Psychological Factors Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}" />
+  <style>
+    :root {
+      --primary-color: #6C63FF;
+      --primary-light: #8B85FF;
+      --secondary-color: #f8f9fa;
+      --text-color: #2b2d42;
+      --accent-color: #FF6B6B;
+      --success-color: #4ECDC4;
+      --warning-color: #FFD93D;
+      --border-radius: 16px;
+      --box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+      --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%);
+      --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+      --gradient-success: linear-gradient(135deg, #4ECDC4 0%, #6EE7DE 100%);
+      --gradient-warning: linear-gradient(135deg, #FFD93D 0%, #FFE566 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .dashboard-container {
+      margin-left: calc(var(--navbar-width) + 2vw);
+      padding: 20px;
+      width: calc(100% - var(--navbar-width) - 4vw);
+    }    header {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 3rem;
+      text-align: center;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      animation: patternFloat 20s linear infinite;
+    }
+
+    @keyframes patternFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      z-index: 1;
+    }    .chart-section {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(108, 99, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: var(--gradient-primary);
+      opacity: 0.05;
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .chart-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(108, 99, 255, 0.15);
+    }
+
+    .chart-section h2 {
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .chart-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 28px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+    }    .chart-content {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 20px rgba(108, 99, 255, 0.08);
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(108, 99, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .chart-content:hover {
+      box-shadow: 0 8px 30px rgba(108, 99, 255, 0.12);
+    }
+
+    .key-findings {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--gradient-primary);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+      border-radius: var(--border-radius);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .key-findings h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .key-findings h4 i {
+      font-size: 1.6rem;
+    }
+
+    .key-findings ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .key-findings li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .key-findings li:before {
+      content: "→";
+      color: white;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .chart-section {
+        padding: 1.5rem;
+      }
+
+      .chart-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>  <!-- Sidebar Navigation -->
+  <div id="nav-bar">
+    <input id="nav-toggle" type="checkbox"/>
+    <div id="nav-header">
+      <div id="nav-title">AI Analysis</div>
+      <label for="nav-toggle">
+        <span id="nav-toggle-burger"></span>
+      </label>
+      <hr>
+    </div>
+    <div id="nav-content">
+      <a href="{{ url_for('dashboard') }}" class="nav-button">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>      <a href="{{ url_for('demographics') }}" class="nav-button">
+        <i class="fas fa-users"></i>
+        <span>Demographics</span>
+      </a>
+      <a href="{{ url_for('cognitive') }}" class="nav-button">
+        <i class="fas fa-brain"></i>
+        <span>Cognitive Factors</span>
+      </a>
+      <a href="{{ url_for('lifestyle') }}" class="nav-button">
+        <i class="fas fa-heartbeat"></i>
+        <span>Lifestyle & Health</span>
+      </a>
+      <a href="{{ url_for('genetic') }}" class="nav-button">
+        <i class="fas fa-dna"></i>
+        <span>Genetic & Environmental</span>
+      </a>
+      <a href="{{ url_for('socioeconomic') }}" class="nav-button">
+        <i class="fas fa-hands-helping"></i>
+        <span>Social & Economic</span>
+      </a>
+      <div id="nav-content-highlight"></div>
+    </div>
+    <input id="nav-footer-toggle" type="checkbox"/>
+    <div id="nav-footer">
+      <div id="nav-footer-heading">
+        <div id="nav-footer-avatar">
+          <img src="https://avatars.githubusercontent.com/u/57622665?s=460&u=8f581f4c4acd4c18c33a87b3e6476112325e8b38&v=4" alt="Avatar">
+        </div>
+        <div id="nav-footer-titlebox">
+          <a id="nav-footer-title">Alzheimer's</a>
+          <span id="nav-footer-subtitle">Research Dashboard</span>
+        </div>
+        <label for="nav-footer-toggle">
+          <i class="fas fa-caret-up"></i>
+        </label>
+      </div>
+      <div id="nav-footer-content">
+        AI-powered analysis and predictions for Alzheimer's research
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-container">
+    <header class="fade-in">
+      <h1>Cognitive & Psychological Factors Analysis</h1>
+      <p>Comprehensive analysis of cognitive test scores, depression levels, and sleep quality patterns in relation to Alzheimer's diagnosis.</p>
+    </header>
+
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-brain"></i>Cognitive Test Score Analysis</h2>
+      <div class="chart-content">
+        {{graph17|safe}}
+      </div>
+      <div class="key-findings">
+        <h4><i class="fas fa-lightbulb"></i>Key Insights</h4>
+        <ul>
+          <li>Analysis of cognitive test performance across different diagnosis groups</li>
+          <li>Distribution patterns of scores showing diagnostic indicators</li>
+          <li>Correlation between cognitive performance and disease progression</li>
+          <li>Identification of cognitive threshold patterns</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-heart"></i>Depression Level Distribution</h2>
+      <div class="chart-content">
+        {{graph18|safe}}
+      </div>
+      <div class="key-findings">
+        <h4><i class="fas fa-lightbulb"></i>Key Insights</h4>
+        <ul>
+          <li>Relationship between depression levels and Alzheimer's diagnosis</li>
+          <li>Distribution patterns of depression severity</li>
+          <li>Impact of depression on cognitive decline</li>
+          <li>Potential early warning indicators</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-bed"></i>Sleep Quality Analysis</h2>
+      <div class="chart-content">
+        {{graph19|safe}}
+      </div>
+      <div class="key-findings">
+        <h4><i class="fas fa-lightbulb"></i>Key Insights</h4>
+        <ul>
+          <li>Sleep quality patterns among different diagnosis groups</li>
+          <li>Distribution of sleep quality scores</li>
+          <li>Impact of sleep disturbances on cognitive function</li>
+          <li>Sleep quality as a potential risk factor</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="chart-section fade-in">
+      <h2><i class="fas fa-chart-pie"></i>Sleep Quality Impact Analysis</h2>
+      <div class="chart-content">
+        {{graph20|safe}}
+      </div>
+      <div class="key-findings">
+        <h4><i class="fas fa-lightbulb"></i>Key Insights</h4>
+        <ul>
+          <li>Detailed breakdown of sleep quality impact on diagnosis</li>
+          <li>Correlation patterns between sleep and cognitive decline</li>
+          <li>Identification of high-risk sleep patterns</li>
+          <li>Sleep quality intervention opportunities</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Animation Script -->
+  <script>
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const revealOnScroll = () => {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+          element.classList.add('visible');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>

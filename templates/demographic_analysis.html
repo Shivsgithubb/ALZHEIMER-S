@@ -97,11 +97,58 @@
       margin: 0 auto;
     }
 
+    .insight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.insight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(108, 99, 255, 0.2);
+}
+
+.insight-card:hover::before {
+  transform: scaleX(1);
+}
+
+.insight-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.insight-card h3 i {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+}
+
+.insight-card p {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
     .insights-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      padding: 0 1rem;
     }
 
     .insight-card {
@@ -109,10 +156,14 @@
       padding: 2rem;
       border-radius: var(--border-radius);
       box-shadow: var(--box-shadow);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      transition: all 0.3s ease;
       border: 1px solid rgba(108, 99, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 200px;
     }
 
     .insight-card::before {
@@ -125,46 +176,63 @@
       background: var(--gradient-primary);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s ease;
     }
 
     .insight-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(108, 99, 255, 0.2);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(108, 99, 255, 0.2);
     }
 
     .insight-card:hover::before {
       transform: scaleX(1);
     }
 
-    .insight-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    .insight-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
-    .insight-card h3 i {
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 1.8rem;
+    .insight-card h3 {
+      color: var(--text-color);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
 
     .insight-card p {
-      color: var(--text-color);
-      font-size: 1.1rem;
+      color: #666;
+      font-size: 1rem;
       line-height: 1.6;
-      opacity: 0.8;
+      margin: 0;
+    }
+
+    .insight-stat {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .insight-stat span {
+      font-size: 1rem;
+      color: #666;
     }
 
     .chart-section {
       background: white;
       padding: 2.5rem;
-      border-radius: var(--border-radius);
+      border-radius: var (--border-radius);
       box-shadow: var(--box-shadow);
       margin-bottom: 2rem;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -370,8 +438,8 @@
   <div id="nav-bar">
     <input id="nav-toggle" type="checkbox" />
     <div id="nav-header">
-      <a id="nav-title" href="https://codepen.io" target="_blank">
-        <pre>    Graphs Analysis</pre>
+      <a id="nav-title" href="/login" target="_blank">
+        <pre>  Login/Sign up</pre>
       </a>
       <hr />
       <label for="nav-toggle"><span id="nav-toggle"></span></label>
@@ -385,14 +453,14 @@
       </div>
       <hr />
 
-      <div class="nav-button">
-        <i class="fas fa-key"></i><span>Feature Importance & prediction</span>
-      </div>
-      <hr />
-      <div class="nav-button">
-        <i class="fas fa-tree"></i><span>Genetic & Environment Risk</span>
-      </div>
-      <hr />
+  
+      <a href="/Genetic_and_environment">
+        <div class="nav-button">
+          <i class="fas fa-tree"></i><span>Genetic & Environment Risk</span>
+        </a>
+        </div>
+        <hr/>
+      
       <div class="nav-button">
         <i class="fas fa-heartbeat"></i><span>Lifestyle & Health factor</span>
       </div>
@@ -410,7 +478,7 @@
       </div>
       <hr />
       <div class="nav-button">
-        <i class="fas fa-brain"></i><span>Alzhiemrs</span>
+        <i class="fas fa-brain"></i><span>Alzhiemers</span>
       </div>
       <div id="nav-content-highlight"></div>
     </div>
@@ -440,21 +508,27 @@
 
     <div class="insights-grid">
       <div class="insight-card fade-in">
-        <h3><i class="fas fa-chart-line"></i> Age Analysis</h3>
-        <p>Understanding how age influences Alzheimer's diagnosis rates and identifying key risk age groups.</p>
+        <i class="fas fa-chart-line insight-icon"></i>
+        <h3>Age Distribution</h3>
+        <p>Understanding the correlation between age groups and Alzheimer's diagnosis rates across the population.</p>
+        <div class="insight-stat">65+<span>Peak Age Group</span></div>
       </div>
+
       <div class="insight-card fade-in">
-        <h3><i class="fas fa-venus-mars"></i> Gender Distribution</h3>
-        <p>Exploring gender-based patterns in Alzheimer's diagnosis and their implications.</p>
+        <i class="fas fa-venus-mars insight-icon"></i>
+        <h3>Gender Analysis</h3>
+        <p>Exploring gender-specific patterns and risk factors in Alzheimer's diagnosis and progression.</p>
+        <div class="insight-stat">2:1<span>F:M Ratio</span></div>
       </div>
+
       <div class="insight-card fade-in">
-        <h3><i class="fas fa-graduation-cap"></i> Education Impact</h3>
-        <p>Analyzing the relationship between education levels and Alzheimer's diagnosis rates.</p>
+        <i class="fas fa-graduation-cap insight-icon"></i>
+        <h3>Education Impact</h3>
+        <p>Analyzing how education levels correlate with cognitive reserve and disease onset patterns.</p>
+        <div class="insight-stat">-30%<span>Higher Education</span></div>
       </div>
-      <div class="insight-card fade-in">
-        <h3><i class="fas fa-globe"></i> Geographical Patterns</h3>
-        <p>Examining regional variations in Alzheimer's diagnosis across different countries.</p>
-      </div>
+
+      
     </div>
 
     <div class="chart-section fade-in">
