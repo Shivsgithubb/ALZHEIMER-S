@@ -1,16 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from werkzeug.utils import secure_filename
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
+import pickle
+import numpy as np
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
 
 df = pd.read_csv('alzheimers_prediction_dataset.csv')
 
+# Load the trained model
+with open('alzheimers_prediction_model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 @app.route('/')
 def index():
@@ -584,6 +589,90 @@ def cognitive():
     graph20 = Sleep_Quality_and_Alzheimers_Diagnosis()
 
     return render_template('cognitive_phsychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
+
+def predict_alzheimers_risk(sample_data):
+    """
+    Make prediction and return detailed results
+    """
+    prediction_proba = model.predict_proba(sample_data)[0, 1]
+    prediction = model.predict(sample_data)[0]
+    
+    risk_level = ""
+    recommendations = []
+    
+    if prediction == 1:
+        if prediction_proba > 0.8:
+            risk_level = "VERY HIGH RISK"
+            recommendations = [
+                "Immediate medical consultation is strongly advised",
+                "Consider comprehensive cognitive assessment",
+                "Regular monitoring of cognitive function"
+            ]
+        else:
+            risk_level = "ELEVATED RISK"
+            recommendations = [
+                "Schedule a medical check-up",
+                "Monitor cognitive changes",
+                "Consider lifestyle modifications"
+            ]
+    else:
+        if prediction_proba < 0.2:
+            risk_level = "VERY LOW RISK"
+            recommendations = [
+                "Maintain current healthy lifestyle",
+                "Regular exercise and mental activities",
+                "Routine health check-ups"
+            ]
+        else:
+            risk_level = "LOW RISK"
+            recommendations = [
+                "Continue healthy practices",
+                "Monitor any cognitive changes",
+                "Regular health check-ups"
+            ]
+    
+    return {
+        'prediction': 'High Risk' if prediction == 1 else 'Low Risk',
+        'probability': f"{prediction_proba:.2%}",
+        'risk_level': risk_level,
+        'recommendations': recommendations
+    }
+
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+    if request.method == 'GET':
+        return render_template('predict.html')
+    
+    # Handle POST request (form submission)
+    try:
+        input_data = {
+            'Age': int(request.form['age']),
+            'Gender': request.form['gender'],
+            'Physical Activity Level': request.form['activity_level'],
+            'Smoking Status': request.form['smoking_status'],
+            'Family History of Alzheimer’s': request.form['family_history'],
+            'Dietary Habits': request.form['dietary_habits'],
+            'Air Pollution Exposure': request.form['pollution_exposure'],
+            'Employment Status': request.form['employment_status'],
+            'Marital Status': request.form['marital_status'],
+            'Genetic Risk Factor (APOE-ε4 allele)': request.form['genetic_risk'],
+            'Social Engagement Level': request.form['social_engagement'],
+            'Income Level': request.form['income_level'],
+            'Stress Levels': request.form['stress_level'],
+            'Urban vs Rural Living': request.form['living_area']
+        }
+        
+        # Convert to DataFrame
+        sample_data = pd.DataFrame([input_data])
+        
+        # Make prediction
+        results = predict_alzheimers_risk(sample_data)
+        
+        return render_template('prediction_result.html', results=results, input_data=input_data)
+    
+    except Exception as e:
+        flash('Error processing your request. Please check your inputs and try again.', 'error')
+        return redirect(url_for('predict'))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
