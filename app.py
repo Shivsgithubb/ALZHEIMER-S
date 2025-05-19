@@ -7,9 +7,23 @@ import plotly.io as pio
 from plotly.subplots import make_subplots
 import pickle
 import numpy as np
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from models import db, User
+from forms import LoginForm, SignupForm
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 df = pd.read_csv('alzheimers_prediction_dataset.csv')
 
@@ -22,6 +36,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
@@ -29,9 +44,49 @@ def dashboard():
 def about():
     return render_template('about.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+
+    form = LoginForm()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.check_password(password):
+            login_user(user)
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid email or password')
+    
     return render_template('login.html')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if User.query.filter_by(email=email).first():
+            flash('Email already exists')
+            return redirect(url_for('login'))
+        
+        user = User(name=name, email=email)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        
+        login_user(user)
+        return redirect(url_for('dashboard'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 #graphs functions
 def age_distribution():
@@ -639,6 +694,7 @@ def predict_alzheimers_risk(sample_data):
     }
 
 @app.route('/predict', methods=['GET', 'POST'])
+@login_required
 def predict():
     if request.method == 'GET':
         return render_template('predict.html')
