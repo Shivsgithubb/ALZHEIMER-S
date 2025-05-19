@@ -1,13 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from werkzeug.utils import secure_filename
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
+import pickle
+import numpy as np
+from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+import warnings
+warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
+
+# Load the trained model
+with open('gradient_boosting_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
 df = pd.read_csv('alzheimers_prediction_dataset.csv')
 
@@ -584,6 +596,86 @@ def cognitive():
     graph20 = Sleep_Quality_and_Alzheimers_Diagnosis()
 
     return render_template('cognitive_phsychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
+
+# Create and fit the preprocessor globally with training data
+numerical_features = ['Age', 'BMI', 'Education Level', 'Cognitive Test Score']
+categorical_features = ['Gender', 'Employment Status', 'Marital Status', 
+                      'Physical Activity Level', 'Social Engagement Level', 'Urban vs Rural Living',
+                      'Smoking Status', 'Genetic Risk Factor (APOE-ε4 allele)', 'Income Level',
+                      'Sleep Quality', 'Depression Level', 'Air Pollution Exposure']
+
+# Create preprocessing pipelines for both numerical and categorical data
+numerical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='mean')),
+    ('scaler', StandardScaler())
+])
+
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
+])
+
+# Combine preprocessing steps
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numerical_transformer, numerical_features),
+        ('cat', categorical_transformer, categorical_features)
+    ])
+
+# Fit the preprocessor with training data
+preprocessor.fit(df)
+
+# Helper function to preprocess input data
+def preprocess_input(data):
+    # Create a DataFrame with one row
+    input_df = pd.DataFrame([data])
+    
+    # Transform the input data using the fitted preprocessor
+    processed_data = preprocessor.transform(input_df)
+    
+    return processed_data
+
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+    if request.method == 'POST':
+        try:
+            # Get form data
+            input_data = {
+                'Age': float(request.form['age']),
+                'Gender': request.form['gender'],
+                'Education Level': int(request.form['education']),
+                'Income Level': request.form['income'],
+                'Employment Status': request.form['employment'],
+                'Marital Status': request.form['marital'],
+                'Urban vs Rural Living': request.form['living_area'],
+                'BMI': float(request.form['bmi']),
+                'Smoking Status': request.form['smoking'],
+                'Physical Activity Level': request.form['activity'],
+                'Sleep Quality': request.form['sleep'],
+                'Depression Level': request.form['depression'],
+                'Social Engagement Level': request.form['social'],
+                'Cognitive Test Score': float(request.form['cognitive']),
+                'Air Pollution Exposure': request.form['pollution'],
+                'Genetic Risk Factor (APOE-ε4 allele)': request.form['genetic']
+            }            # Preprocess the input using the fitted preprocessor
+            processed_input = preprocess_input(input_data)
+            
+            # Make prediction
+            prediction = model.predict(processed_input)[0]
+            probability = model.predict_proba(processed_input)[0][1]
+            
+            result = {
+                'prediction': 'Yes' if prediction == 1 else 'No',
+                'probability': round(probability * 100, 2)
+            }
+            
+            return render_template('predict.html', result=result)
+            
+        except Exception as e:
+            flash(f'Error in prediction: {str(e)}', 'error')
+            return render_template('predict.html')
+            
+    return render_template('predict.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
