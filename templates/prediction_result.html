@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}" />
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --primary-light: #8B85FF;
+            --secondary-color: #f8f9fa;
+            --text-color: #2b2d42;
+            --accent-color: #FF6B6B;
+            --success-color: #4ECDC4;
+            --warning-color: #FFD93D;
+            --border-radius: 16px;
+            --box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+            --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%);
+            --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+            --gradient-success: linear-gradient(135deg, #4ECDC4 0%, #6EE7DE 100%);
+            --gradient-warning: linear-gradient(135deg, #FFD93D 0%, #FFE566 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+        }
+
+        .main-content {
+            margin-left: 350px;
+            padding: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: white;
+        }
+
+        .risk-badge.high-risk {
+            background: var(--gradient-accent);
+        }
+
+        .risk-badge.low-risk {
+            background: var(--gradient-success);
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        .recommendation-item i {
+            margin-right: 1rem;
+            color: var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>    <input type="checkbox" id="nav-toggle" />
+    {% include 'dashboard.html' %}
+    <div class="main-content">
+        <h2 class="section-title">Alzheimer's Risk Assessment Results</h2>
+        
+        <div class="card">
+            <h3 class="section-title" style="font-size: 1.5rem;">Risk Analysis</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">{{ results.prediction }}</div>
+                    <div class="stat-label">Risk Assessment</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ results.probability }}</div>
+                    <div class="stat-label">Risk Probability</div>
+                </div>
+            </div>
+            <div class="risk-badge {% if 'HIGH' in results.risk_level %}high-risk{% else %}low-risk{% endif %}">
+                {{ results.risk_level }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title" style="font-size: 1.5rem;">Recommendations</h3>
+            <div class="recommendations">
+                {% for recommendation in results.recommendations %}
+                <div class="recommendation-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>{{ recommendation }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title" style="font-size: 1.5rem;">Input Data Summary</h3>
+            <div class="stats-grid">
+                {% for key, value in input_data.items() %}
+                <div class="stat-item">
+                    <div class="stat-value" style="font-size: 1.2rem;">{{ value }}</div>
+                    <div class="stat-label">{{ key }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="{{ url_for('predict') }}" class="btn btn-primary">Make Another Prediction</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Return to Home</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

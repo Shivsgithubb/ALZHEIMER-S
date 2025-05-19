@@ -201,10 +201,12 @@
         <div class="nav-button">
           <i class="fas fa-magic"></i><span>Spark</span>
         </div>
-        <hr />
-        <div class="nav-button">
-          <i class="fas fa-brain"></i><span>Alzhiemer's</span>
+        <hr />        <div class="nav-button">
+          <a href="{{url_for('predict')}}">
+            <i class="fas fa-stethoscope"></i><span>Detect Alzheimer's</span>
+          </a>
         </div>
+        <hr />
         <div id="nav-content-highlight"></div>
       </div>
       <input id="nav-footer-toggle" type="checkbox" />

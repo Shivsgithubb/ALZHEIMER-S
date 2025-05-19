@@ -7,15 +7,23 @@ import plotly.io as pio
 from plotly.subplots import make_subplots
 import pickle
 import numpy as np
-from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
-from sklearn.impute import SimpleImputer
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-import warnings
-warnings.filterwarnings('ignore')
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from models import db, User
+from forms import LoginForm, SignupForm
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 # Load the trained model
 with open('gradient_boosting_model.pkl', 'rb') as file:
@@ -23,12 +31,16 @@ with open('gradient_boosting_model.pkl', 'rb') as file:
 
 df = pd.read_csv('alzheimers_prediction_dataset.csv')
 
+# Load the trained model
+with open('alzheimers_prediction_model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
@@ -36,9 +48,49 @@ def dashboard():
 def about():
     return render_template('about.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+
+    form = LoginForm()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.check_password(password):
+            login_user(user)
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid email or password')
+    
     return render_template('login.html')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if User.query.filter_by(email=email).first():
+            flash('Email already exists')
+            return redirect(url_for('login'))
+        
+        user = User(name=name, email=email)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        
+        login_user(user)
+        return redirect(url_for('dashboard'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 #graphs functions
 def age_distribution():
@@ -597,85 +649,90 @@ def cognitive():
 
     return render_template('cognitive_phsychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
 
-# Create and fit the preprocessor globally with training data
-numerical_features = ['Age', 'BMI', 'Education Level', 'Cognitive Test Score']
-categorical_features = ['Gender', 'Employment Status', 'Marital Status', 
-                      'Physical Activity Level', 'Social Engagement Level', 'Urban vs Rural Living',
-                      'Smoking Status', 'Genetic Risk Factor (APOE-ε4 allele)', 'Income Level',
-                      'Sleep Quality', 'Depression Level', 'Air Pollution Exposure']
-
-# Create preprocessing pipelines for both numerical and categorical data
-numerical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='mean')),
-    ('scaler', StandardScaler())
-])
-
-categorical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-    ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
-])
-
-# Combine preprocessing steps
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numerical_transformer, numerical_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
-
-# Fit the preprocessor with training data
-preprocessor.fit(df)
-
-# Helper function to preprocess input data
-def preprocess_input(data):
-    # Create a DataFrame with one row
-    input_df = pd.DataFrame([data])
+def predict_alzheimers_risk(sample_data):
+    """
+    Make prediction and return detailed results
+    """
+    prediction_proba = model.predict_proba(sample_data)[0, 1]
+    prediction = model.predict(sample_data)[0]
     
-    # Transform the input data using the fitted preprocessor
-    processed_data = preprocessor.transform(input_df)
+    risk_level = ""
+    recommendations = []
     
-    return processed_data
+    if prediction == 1:
+        if prediction_proba > 0.8:
+            risk_level = "VERY HIGH RISK"
+            recommendations = [
+                "Immediate medical consultation is strongly advised",
+                "Consider comprehensive cognitive assessment",
+                "Regular monitoring of cognitive function"
+            ]
+        else:
+            risk_level = "ELEVATED RISK"
+            recommendations = [
+                "Schedule a medical check-up",
+                "Monitor cognitive changes",
+                "Consider lifestyle modifications"
+            ]
+    else:
+        if prediction_proba < 0.2:
+            risk_level = "VERY LOW RISK"
+            recommendations = [
+                "Maintain current healthy lifestyle",
+                "Regular exercise and mental activities",
+                "Routine health check-ups"
+            ]
+        else:
+            risk_level = "LOW RISK"
+            recommendations = [
+                "Continue healthy practices",
+                "Monitor any cognitive changes",
+                "Regular health check-ups"
+            ]
+    
+    return {
+        'prediction': 'High Risk' if prediction == 1 else 'Low Risk',
+        'probability': f"{prediction_proba:.2%}",
+        'risk_level': risk_level,
+        'recommendations': recommendations
+    }
 
 @app.route('/predict', methods=['GET', 'POST'])
+@login_required
 def predict():
-    if request.method == 'POST':
-        try:
-            # Get form data
-            input_data = {
-                'Age': float(request.form['age']),
-                'Gender': request.form['gender'],
-                'Education Level': int(request.form['education']),
-                'Income Level': request.form['income'],
-                'Employment Status': request.form['employment'],
-                'Marital Status': request.form['marital'],
-                'Urban vs Rural Living': request.form['living_area'],
-                'BMI': float(request.form['bmi']),
-                'Smoking Status': request.form['smoking'],
-                'Physical Activity Level': request.form['activity'],
-                'Sleep Quality': request.form['sleep'],
-                'Depression Level': request.form['depression'],
-                'Social Engagement Level': request.form['social'],
-                'Cognitive Test Score': float(request.form['cognitive']),
-                'Air Pollution Exposure': request.form['pollution'],
-                'Genetic Risk Factor (APOE-ε4 allele)': request.form['genetic']
-            }            # Preprocess the input using the fitted preprocessor
-            processed_input = preprocess_input(input_data)
-            
-            # Make prediction
-            prediction = model.predict(processed_input)[0]
-            probability = model.predict_proba(processed_input)[0][1]
-            
-            result = {
-                'prediction': 'Yes' if prediction == 1 else 'No',
-                'probability': round(probability * 100, 2)
-            }
-            
-            return render_template('predict.html', result=result)
-            
-        except Exception as e:
-            flash(f'Error in prediction: {str(e)}', 'error')
-            return render_template('predict.html')
-            
-    return render_template('predict.html')
+    if request.method == 'GET':
+        return render_template('predict.html')
+    
+    # Handle POST request (form submission)
+    try:
+        input_data = {
+            'Age': int(request.form['age']),
+            'Gender': request.form['gender'],
+            'Physical Activity Level': request.form['activity_level'],
+            'Smoking Status': request.form['smoking_status'],
+            'Family History of Alzheimer’s': request.form['family_history'],
+            'Dietary Habits': request.form['dietary_habits'],
+            'Air Pollution Exposure': request.form['pollution_exposure'],
+            'Employment Status': request.form['employment_status'],
+            'Marital Status': request.form['marital_status'],
+            'Genetic Risk Factor (APOE-ε4 allele)': request.form['genetic_risk'],
+            'Social Engagement Level': request.form['social_engagement'],
+            'Income Level': request.form['income_level'],
+            'Stress Levels': request.form['stress_level'],
+            'Urban vs Rural Living': request.form['living_area']
+        }
+        
+        # Convert to DataFrame
+        sample_data = pd.DataFrame([input_data])
+        
+        # Make prediction
+        results = predict_alzheimers_risk(sample_data)
+        
+        return render_template('prediction_result.html', results=results, input_data=input_data)
+    
+    except Exception as e:
+        flash('Error processing your request. Please check your inputs and try again.', 'error')
+        return redirect(url_for('predict'))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
