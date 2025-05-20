@@ -25,6 +25,10 @@ login_manager.login_view = 'login'
 def load_user(id):
     return User.query.get(int(id))
 
+# Load the trained model
+with open('gradient_boosting_model.pkl', 'rb') as file:
+    model = pickle.load(file)
+
 df = pd.read_csv('alzheimers_prediction_dataset.csv')
 
 # Load the trained model
