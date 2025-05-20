@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alzheimer's Risk Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}" />
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --primary-light: #8B85FF;
+            --secondary-color: #f8f9fa;
+            --text-color: #2b2d42;
+            --accent-color: #FF6B6B;
+            --success-color: #4ECDC4;
+            --warning-color: #FFD93D;
+            --border-radius: 16px;
+            --box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+            --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%);
+            --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+        }
+
+        .main-content {
+            margin-left: 350px;
+            padding: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e1e5ee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .prediction-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-error {
+            background-color: #ffe5e5;
+            border: 1px solid #ff8a8a;
+            color: #d63031;
+        }
+
+        .section-title {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>    <input type="checkbox" id="nav-toggle" />
+    {% include 'dashboard.html' %}
+    <div class="main-content">
+        <div class="card">
+            <h2 class="section-title">Alzheimer's Risk Assessment</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="{{ url_for('predict') }}" class="prediction-form">
+            <div class="form-group">
+                <label for="age">Age (40-90):</label>
+                <input type="number" class="form-control" id="age" name="age" min="40" max="90" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="">Select...</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="activity_level">Physical Activity Level:</label>
+                <select class="form-control" id="activity_level" name="activity_level" required>
+                    <option value="">Select...</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="smoking_status">Smoking Status:</label>
+                <select class="form-control" id="smoking_status" name="smoking_status" required>
+                    <option value="">Select...</option>
+                    <option value="Never">Never</option>
+                    <option value="Former">Former</option>
+                    <option value="Current">Current</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="family_history">Family History of Alzheimer's:</label>
+                <select class="form-control" id="family_history" name="family_history" required>
+                    <option value="">Select...</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dietary_habits">Dietary Habits:</label>
+                <select class="form-control" id="dietary_habits" name="dietary_habits" required>
+                    <option value="">Select...</option>
+                    <option value="Healthy">Healthy</option>
+                    <option value="Average">Average</option>
+                    <option value="Unhealthy">Unhealthy</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pollution_exposure">Air Pollution Exposure:</label>
+                <select class="form-control" id="pollution_exposure" name="pollution_exposure" required>
+                    <option value="">Select...</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="employment_status">Employment Status:</label>
+                <select class="form-control" id="employment_status" name="employment_status" required>
+                    <option value="">Select...</option>
+                    <option value="Employed">Employed</option>
+                    <option value="Unemployed">Unemployed</option>
+                    <option value="Retired">Retired</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="marital_status">Marital Status:</label>
+                <select class="form-control" id="marital_status" name="marital_status" required>
+                    <option value="">Select...</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="genetic_risk">Genetic Risk Factor (APOE-ε4 allele):</label>
+                <select class="form-control" id="genetic_risk" name="genetic_risk" required>
+                    <option value="">Select...</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="social_engagement">Social Engagement Level:</label>
+                <select class="form-control" id="social_engagement" name="social_engagement" required>
+                    <option value="">Select...</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="income_level">Income Level:</label>
+                <select class="form-control" id="income_level" name="income_level" required>
+                    <option value="">Select...</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="stress_level">Stress Levels:</label>
+                <select class="form-control" id="stress_level" name="stress_level" required>
+                    <option value="">Select...</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="living_area">Urban vs Rural Living:</label>
+                <select class="form-control" id="living_area" name="living_area" required>
+                    <option value="">Select...</option>
+                    <option value="Urban">Urban</option>
+                    <option value="Rural">Rural</option>
+                </select>
+            </div>                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-chart-line"></i>
+                        Get Prediction
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title" style="font-size: 1.5rem;">Important Information</h3>
+            <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div class="info-item" style="padding: 1.5rem; background: var(--secondary-color); border-radius: 12px;">
+                    <i class="fas fa-info-circle" style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Accuracy</h4>
+                    <p>This prediction tool uses machine learning to assess Alzheimer's risk based on various factors. Results should be used as a screening tool, not a diagnosis.</p>
+                </div>
+                <div class="info-item" style="padding: 1.5rem; background: var(--secondary-color); border-radius: 12px;">
+                    <i class="fas fa-user-md" style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Medical Advice</h4>
+                    <p>Always consult with healthcare professionals for proper medical diagnosis and treatment plans.</p>
+                </div>
+                <div class="info-item" style="padding: 1.5rem; background: var(--secondary-color); border-radius: 12px;">
+                    <i class="fas fa-shield-alt" style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Privacy</h4>
+                    <p>Your data is processed securely and not stored after the prediction is made.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+</html>

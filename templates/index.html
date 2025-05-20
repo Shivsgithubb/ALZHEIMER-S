@@ -38,14 +38,19 @@
     <!-- navbar link  -->
 
     <a href="#" class="logo"><span>A</span>lzheimer <span>P</span>rediction
-    </a>
-    <nav class="navbar">
+    </a>    <nav class="navbar">
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#data">Data Insights</a></li>
         <li><a href="#research">Research</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/login">Login</a></li>
+        {% if current_user.is_authenticated %}
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/predict">Predict</a></li>
+          <li><a href="/logout">Logout</a></li>
+          <li><span style="color: #6C63FF;">Welcome, {{ current_user.name }}!</span></li>
+        {% else %}
+          <li><a href="/login">Login</a></li>
+        {% endif %}
       </ul>
     </nav>
     <div class="fas fa-bars"></div>
