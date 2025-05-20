@@ -378,58 +378,56 @@
   <body>
     <!-- Sidebar Navigation -->
     <div id="nav-bar">
-        <input id="nav-toggle" type="checkbox" />
-        <div id="nav-header">
-            <a id="nav-title" href="{{url_for('login')}}">
-                <pre>  Login/Sign up</pre>
-            </a>
-            <hr />
-            <label for="nav-toggle"><span id="nav-toggle"></span></label>
-            <hr />
+      <input id="nav-toggle" type="checkbox" />
+      <div id="nav-header">
+        <a id="nav-title" href="/login" target="_blank">
+          <pre>    Login/Sign up</pre>
+        </a>
+        <hr />
+        <label for="nav-toggle"><span id="nav-toggle"></span></label>
+        <hr />
+      </div>
+      <div id="nav-content">
+        <div class="nav-button">
+          <a href="/demographic_analysis">
+            <i class="fas fa-chart-line"></i><span>Demographic Analysis</span>
+          </a>
         </div>
-        <div id="nav-content">
-            <div class="nav-button">
-                <a href="{{url_for('demographics')}}">
-                    <i class="fas fa-chart-line"></i><span>Demographic Analysis</span>
-                </a>
-            </div>
-            <hr />
-            
-            <div class="nav-button">
-                <a href="{{url_for('genetic')}}">
-                    <i class="fas fa-dna"></i><span>Genetic & Environment Risk</span>
-                </a>
-            </div>
-            <hr/>
-            
-            <div class="nav-button">
-                <a href="{{url_for('lifestyle')}}">
-                    <i class="fas fa-heartbeat"></i><span>Lifestyle & Health Factor</span>
-                </a>
-            </div>
-            <hr />
-            
-            <div class="nav-button">
-                <a href="{{url_for('socioeconomic')}}">
-                    <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
-                </a>
-            </div>
-            <hr />
-            
-            <div class="nav-button">
-                <a href="{{url_for('dashboard')}}">
-                    <i class="fas fa-fire"></i><span>Dashboard</span>
-                </a>
-            </div>
-            <hr />
-            
-            <div class="nav-button">
-                <a href="{{url_for('index')}}">
-                    <i class="fas fa-home"></i><span>Home</span>
-                </a>
-            </div>
-            <div id="nav-content-highlight"></div>
+        <hr />
+        
+        <div class="nav-button">
+          <a href="/Genetic_and_environmental_risk">
+            <i class="fas fa-dna"></i><span>Genetic and Environmental risk</span>
+        </a>
         </div>
+      
+        <hr />
+        <div class="nav-button">
+          <a href="/Lifestyle_and_health_factors">
+          <i class="fas fa-heartbeat"></i><span>Lifestyle & Health factor</span>
+        </div>
+        
+        <hr />
+        <div class="nav-button">
+          <a href="/socioeconomic_&_social_engagement">
+          <i class="fas fa-users"></i><span>Socioeconomics Engagement</span>
+        </div>
+        <hr />
+        <div class="nav-button">
+          <a href="cognitive_phsychological_factors">
+          <i class="fas fa-users"></i><span>Cognitive Psychological Factors</span>
+        </div>
+        
+        <hr />        <div class="nav-button">
+          <a href="{{url_for('predict')}}">
+            <i class="fas fa-stethoscope"></i><span>Detect Alzheimer's</span>
+          </a>
+        </div>
+        <hr />
+        <div id="nav-content-highlight"></div>
+      </div>
+      <input id="nav-footer-toggle" type="checkbox" />
+     
     </div>
 
     <div class="dashboard-container">
