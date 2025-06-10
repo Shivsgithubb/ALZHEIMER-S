@@ -1,22 +1,46 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from werkzeug.utils import secure_filename
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
+import pickle
+import numpy as np
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from models import db, User
+from forms import LoginForm, SignupForm
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+# Load the trained model
+with open('gradient_boosting_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
 df = pd.read_csv('alzheimers_prediction_dataset.csv')
 
+# Load the trained model
+with open('alzheimers_prediction_model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
@@ -24,9 +48,49 @@ def dashboard():
 def about():
     return render_template('about.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+
+    form = LoginForm()
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.check_password(password):
+            login_user(user)
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid email or password')
+    
     return render_template('login.html')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if User.query.filter_by(email=email).first():
+            flash('Email already exists')
+            return redirect(url_for('login'))
+        
+        user = User(name=name, email=email)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        
+        login_user(user)
+        return redirect(url_for('dashboard'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 #graphs functions
 def age_distribution():
@@ -34,7 +98,7 @@ def age_distribution():
     labels = ['<30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90+']
     df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=labels, right=False)
     # Calculate diagnosis rate by age group
-    age_analysis = df.groupby('Age Group')['Alzheimer\'s Diagnosis'].apply(lambda x: (x == 'Yes').mean() * 100).reset_index()
+    age_analysis = df.groupby('Age Group')['Alzheimer’s Diagnosis'].apply(lambda x: (x == 'Yes').mean() * 100).reset_index()
     age_analysis.columns = ['Age Group', 'Diagnosis Rate (%)']
     # Create Plotly bar chart
     fig = px.bar(age_analysis, 
@@ -62,7 +126,7 @@ def age_distribution():
 
 def gender_distribution():
     # Calculate gender distribution for diagnosed and non-diagnosed cases
-    gender_diagnosis = pd.crosstab(df['Gender'], df['Alzheimer’s Diagnosisosis'])
+    gender_diagnosis = pd.crosstab(df['Gender'], df['Alzheimer’s Diagnosis'])
     # Create two subplots
     fig = make_subplots(rows=1, cols=2, 
                         subplot_titles=('Gender Distribution - Diagnosed', 'Gender Distribution - Not Diagnosed'),
@@ -221,6 +285,10 @@ def BMI_distribution():
     return graph10_html
 
 def physical_activity():
+    # Create a cross-tabulation of Physical Activity Level and Alzheimer's Diagnosis
+    activity_ct = pd.crosstab(df["Physical Activity Level"], df["Alzheimer’s Diagnosis"])
+    
+    # Calculate percentages
     activity_percentages = pd.DataFrame()
     for level in ['Low', 'Medium', 'High']:
         total = activity_ct.loc[level, 'No'] + activity_ct.loc[level, 'Yes']
@@ -564,7 +632,7 @@ def lifestyle():
     graph12 = Multifactor_analysis()
     return render_template('Lifestyle_and_health_factors.html', graph9=graph9, graph10=graph10, graph11=graph11, graph12=graph12)
 
-@app.route('/socioeconomic & social engagement')
+@app.route('/socioeconomic_&_social_engagement')
 def socioeconomic():
     graph13 = Diagnosis_by_income_level()
     graph14 = Diagnosis_by_Employment_status()
@@ -579,8 +647,93 @@ def cognitive():
     graph19 = Sleep_Quality_Disrtribution()
     graph20 = Sleep_Quality_and_Alzheimers_Diagnosis()
 
-    return render_template('cognitive_psychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
+    return render_template('cognitive_phsychological_factors.html', graph17=graph17, graph18=graph18, graph19=graph19, graph20=graph20)
+
+def predict_alzheimers_risk(sample_data):
+    """
+    Make prediction and return detailed results
+    """
+    prediction_proba = model.predict_proba(sample_data)[0, 1]
+    prediction = model.predict(sample_data)[0]
+    
+    risk_level = ""
+    recommendations = []
+    
+    if prediction == 1:
+        if prediction_proba > 0.8:
+            risk_level = "VERY HIGH RISK"
+            recommendations = [
+                "Immediate medical consultation is strongly advised",
+                "Consider comprehensive cognitive assessment",
+                "Regular monitoring of cognitive function"
+            ]
+        else:
+            risk_level = "ELEVATED RISK"
+            recommendations = [
+                "Schedule a medical check-up",
+                "Monitor cognitive changes",
+                "Consider lifestyle modifications"
+            ]
+    else:
+        if prediction_proba < 0.2:
+            risk_level = "VERY LOW RISK"
+            recommendations = [
+                "Maintain current healthy lifestyle",
+                "Regular exercise and mental activities",
+                "Routine health check-ups"
+            ]
+        else:
+            risk_level = "LOW RISK"
+            recommendations = [
+                "Continue healthy practices",
+                "Monitor any cognitive changes",
+                "Regular health check-ups"
+            ]
+    
+    return {
+        'prediction': 'High Risk' if prediction == 1 else 'Low Risk',
+        'probability': f"{prediction_proba:.2%}",
+        'risk_level': risk_level,
+        'recommendations': recommendations
+    }
+
+@app.route('/predict', methods=['GET', 'POST'])
+@login_required
+def predict():
+    if request.method == 'GET':
+        return render_template('predict.html')
+    
+    # Handle POST request (form submission)
+    try:
+        input_data = {
+            'Age': int(request.form['age']),
+            'Gender': request.form['gender'],
+            'Physical Activity Level': request.form['activity_level'],
+            'Smoking Status': request.form['smoking_status'],
+            'Family History of Alzheimer’s': request.form['family_history'],
+            'Dietary Habits': request.form['dietary_habits'],
+            'Air Pollution Exposure': request.form['pollution_exposure'],
+            'Employment Status': request.form['employment_status'],
+            'Marital Status': request.form['marital_status'],
+            'Genetic Risk Factor (APOE-ε4 allele)': request.form['genetic_risk'],
+            'Social Engagement Level': request.form['social_engagement'],
+            'Income Level': request.form['income_level'],
+            'Stress Levels': request.form['stress_level'],
+            'Urban vs Rural Living': request.form['living_area']
+        }
+        
+        # Convert to DataFrame
+        sample_data = pd.DataFrame([input_data])
+        
+        # Make prediction
+        results = predict_alzheimers_risk(sample_data)
+        
+        return render_template('prediction_result.html', results=results, input_data=input_data)
+    
+    except Exception as e:
+        flash('Error processing your request. Please check your inputs and try again.', 'error')
+        return redirect(url_for('predict'))
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
 

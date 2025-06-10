@@ -55,6 +55,7 @@ html, body {
   left: 1vw;
   top: 1vw;
   height: calc(100% - 2vw);
+  width: var(--navbar-width);
   background: var(--navbar-dark-primary);
   border-radius: 16px;
   display: flex;
@@ -63,7 +64,9 @@ html, body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   overflow: hidden;
   user-select: none;
-  z-index: 1000; }
+  z-index: 1000;
+  transition: width 0.2s ease-in-out;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); }
   #nav-bar hr {
     margin: 0;
     position: relative;
